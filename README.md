@@ -1,1 +1,1 @@
-# fusion
+# Fusion VRIK + VRIF implementation
