@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 9116058911491850262}
   - component: {fileID: 5794414076741851932}
   - component: {fileID: 9091472882555766920}
+  - component: {fileID: 3578794665813721297}
   m_Layer: 14
-  m_Name: Sphere
+  m_Name: KnuckleR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732801733563766319}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.07, y: 0, z: 0}
+  m_LocalScale: {x: 0.10000002, y: 0.1, z: 0.10000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4703076577127719224}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &9116058911491850262
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -49,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732801733563766319}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -97,6 +98,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3578794665813721297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732801733563766319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093b37b4ca4c95349bd2ddb7bd70fa66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitDistance: 0.075
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4703076576695597518
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +493,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076576873773897
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1153,7 +1170,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577234706947
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1384,7 +1401,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577338679368
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1688,7 +1705,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577570699842
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1818,7 +1835,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577656988585
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -1983,7 +2000,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577703727298
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2215,7 +2232,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076577780420493
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2635,7 +2652,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &4786283261148487315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2786,7 +2803,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076578385691701
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -2985,7 +3002,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076578511666252
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -3115,7 +3132,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4703076578578515027}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a70e525c82ce9413fa4d940ad7fcf1db, type: 3}
   m_Name: 
@@ -3144,7 +3161,7 @@ MonoBehaviour:
   solver:
     executedInEditor: 0
     IKPosition: {x: 0, y: 0, z: 0}
-    IKPositionWeight: 1
+    IKPositionWeight: 0.5
     root: {fileID: 4703076578578515024}
     iterations: 4
     chain:
@@ -3543,25 +3560,25 @@ MonoBehaviour:
       bone2: {fileID: 4703076576811823576}
       bone3: {fileID: 4703076578814060821}
       maintainRotationWeight: 0
-      weight: 1
+      weight: 0
     - parentBone: {fileID: 4703076576962791097}
       bone1: {fileID: 4703076576811823584}
       bone2: {fileID: 4703076576811823585}
       bone3: {fileID: 4703076576811823540}
       maintainRotationWeight: 0
-      weight: 1
+      weight: 0
     - parentBone: {fileID: 0}
       bone1: {fileID: 4703076576811823586}
       bone2: {fileID: 4703076576811823587}
       bone3: {fileID: 4703076577233221172}
-      maintainRotationWeight: 1
-      weight: 1
+      maintainRotationWeight: 0
+      weight: 0
     - parentBone: {fileID: 0}
       bone1: {fileID: 4703076576811823588}
       bone2: {fileID: 4703076576811823589}
       bone3: {fileID: 4703076578247403494}
-      maintainRotationWeight: 1
-      weight: 1
+      maintainRotationWeight: 0
+      weight: 0
     FABRIKPass: 1
     rootNode: {fileID: 4703076576811823590}
     spineStiffness: 0.5
@@ -3892,7 +3909,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!144 &4703076578601761235
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -4057,7 +4074,7 @@ MonoBehaviour:
   - {fileID: 4703076576811823567}
   - {fileID: 4703076576811823563}
   - {fileID: 4703076576811823579}
-  layer: 4
+  nonCollisionLayer: 4
 --- !u!114 &4703076578623806993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5282,8 +5299,9 @@ GameObject:
   - component: {fileID: 4548305316699917733}
   - component: {fileID: 2367008255691534782}
   - component: {fileID: 9016988029806787250}
+  - component: {fileID: 322136169242237957}
   m_Layer: 13
-  m_Name: Sphere
+  m_Name: KnuckleL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5296,14 +5314,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7339025907256027256}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.07, y: 0, z: 0}
+  m_LocalScale: {x: 0.10000002, y: 0.1, z: 0.10000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4703076577892371831}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &4548305316699917733
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5319,7 +5337,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7339025907256027256}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5367,6 +5385,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &322136169242237957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339025907256027256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093b37b4ca4c95349bd2ddb7bd70fa66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitDistance: 0.075
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &8342434623981910218
 GameObject:
   m_ObjectHideFlags: 0

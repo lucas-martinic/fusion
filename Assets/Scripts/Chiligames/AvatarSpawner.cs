@@ -8,10 +8,14 @@ public class AvatarSpawner : SimulationBehaviour, IPlayerJoined
 
     public void PlayerJoined(PlayerRef player)
     {
-        Player.Instance.transform.SetLocalPositionAndRotation
-            (spawnPos[Runner.LocalPlayer.PlayerId % spawnPos.Length].position,
-            spawnPos[Runner.LocalPlayer.PlayerId % spawnPos.Length].rotation);
+        //If it's myself, spawn an avatar
+        if(player == Runner.LocalPlayer)
+        {
+            Player.Instance.transform.SetLocalPositionAndRotation
+                (spawnPos[Runner.LocalPlayer.PlayerId % spawnPos.Length].position,
+                spawnPos[Runner.LocalPlayer.PlayerId % spawnPos.Length].rotation);
 
-        Runner.Spawn(avatarPrefab);
+            Runner.Spawn(avatarPrefab);
+        }
     }
 }

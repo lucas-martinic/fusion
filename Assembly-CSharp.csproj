@@ -74,10 +74,12 @@
     <Compile Include="Assets\BNG Framework\Scripts\Extras\LiquidWobble.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionUnityLogger.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\LocomotionManager.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\MatchManager.cs" />
     <Compile Include="Assets\BNG Framework\Scenes\XR Demo\DemoCube.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Weapons\MagazineSlide.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\DoorHelper.cs" />
     <Compile Include="Assets\Scripts\AvatarScripts\VRIKUpdateSolver.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\Player.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\UI\VRCanvas.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\SpawnPoints\PlayerSpawnPointPrototype.cs" />
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Utils\InputSystemExtensions.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Components\Climbable.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\RingHelper.cs" />
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Grabbing\KinematicGrabbable.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\Singleton.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\JoystickVehicleControl.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Utilities\FusionUnitySceneManagerUtils.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\PlaySoundOnGrab.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Grabbing\NetworkKinematicGrabbable.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\RemoteGrabber.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\CollisionSound.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\BodyCollider.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\SpawnPoints\SpawnPointManagerPrototype.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\Grabber.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\Zipline.cs" />
@@ -145,6 +149,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Components\GrabbableHighlight.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\DamageCollider.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Prefabs\FusionPrototypingPrefabs.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\Avatar.cs" />
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\HandPose.cs" />
     <Compile Include="Assets\Photon\FusionXRHost\ThirdParty\OculusSampleFrameworkHands\Scripts\OSFHandRepresentation.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\NetworkDebugStart.cs" />
@@ -153,6 +158,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Core\PlayerMovingPlatformSupport.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\TeleportDestination.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Weapons\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\AvatarSpawner.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\RotateWithHMD.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\ControllerPrototype.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\BulletHole.cs" />
@@ -292,12 +298,7 @@
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\HandPoser.cs" />
     <Compile Include="Assets\Scripts\DebugIng\ConsolToUI.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionGraph.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\AvatarSpawner.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\Player.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\Avatar.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\Singleton.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\MatchManager.cs" />
-    <Compile Include="Assets\Scripts\Chiligames\BodyCollider.cs" />
+    <Compile Include="Assets\Scripts\Chiligames\Knuckle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BNG Framework\Integrations\PUN\Readme.txt" />
@@ -1265,6 +1266,26 @@
     <ProjectReference Include="Unity.SysrootPackage.Editor.csproj">
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Editor.csproj">
+      <Project>{E2C2D0FA-D4C9-CE99-3784-EDF9A7A6609E}</Project>
+      <Name>Unity.XR.Hands.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.csproj">
+      <Project>{2036836F-769D-FA6F-17B6-97AE045A1F34}</Project>
+      <Name>Unity.XR.Hands</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj">
+      <Project>{31D65FA4-8EA5-E55C-B86A-84551AAC5FA0}</Project>
+      <Name>Unity.XR.Hands.Samples.VisualizerSample</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj">
+      <Project>{A85B474D-9E93-EF06-29BA-0912C72CB48D}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj">
+      <Project>{20311CBA-0175-2B0E-08A7-21B6AE67D5CE}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1081,6 +1081,26 @@
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Editor.csproj">
+      <Project>{E2C2D0FA-D4C9-CE99-3784-EDF9A7A6609E}</Project>
+      <Name>Unity.XR.Hands.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.csproj">
+      <Project>{2036836F-769D-FA6F-17B6-97AE045A1F34}</Project>
+      <Name>Unity.XR.Hands</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj">
+      <Project>{31D65FA4-8EA5-E55C-B86A-84551AAC5FA0}</Project>
+      <Name>Unity.XR.Hands.Samples.VisualizerSample</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj">
+      <Project>{A85B474D-9E93-EF06-29BA-0912C72CB48D}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj">
+      <Project>{20311CBA-0175-2B0E-08A7-21B6AE67D5CE}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
