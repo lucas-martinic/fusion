@@ -38,6 +38,8 @@ namespace Fusion.XR.Host
         // Dictionary of spawned user prefabs, to destroy them on disconnection
         private Dictionary<PlayerRef, NetworkObject> _spawnedUsers = new Dictionary<PlayerRef, NetworkObject>();
 
+        [SerializeField] Transform[] spawnPos;
+
         private void Awake()
         {
             // Check if a runner exist on the same game object
@@ -80,35 +82,18 @@ namespace Fusion.XR.Host
         #region INetworkRunnerCallbacks
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-            // The user's prefab has to be spawned by the host
-            if (runner.IsServer)
+            //If it's myself, spawn an avatar
+            if (player == runner.LocalPlayer)
             {
-                Debug.Log($"OnPlayerJoined {player.PlayerId}/Local id: ({runner.LocalPlayer.PlayerId})");
-                // We make sure to give the input authority to the connecting player for their user's object
-                NetworkObject networkPlayerObject = runner.Spawn(userPrefab, position: transform.position, rotation: transform.rotation, inputAuthority: player, (runner, obj) => { 
-                });
+                Player.Instance.transform.SetLocalPositionAndRotation
+                    (spawnPos[runner.LocalPlayer.PlayerId].position,
+                    spawnPos[runner.LocalPlayer.PlayerId].rotation);
 
-                // Keep track of the player avatars so we can remove it when they disconnect
-                _spawnedUsers.Add(player, networkPlayerObject);
+                var networkPlayerObject = runner.Spawn(userPrefab);
             }
         }
 
-        // Despawn the user object upon disconnection
-        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
-        {
-            // Find and remove the players avatar (only the host would have stored the spawned game object)
-            if (_spawnedUsers.TryGetValue(player, out NetworkObject networkObject))
-            {
-                runner.Despawn(networkObject);
-                _spawnedUsers.Remove(player);
-            }
-        }
-
-       
-              
-        
         #endregion
-
 
         #region Unused INetworkRunnerCallbacks 
         public void OnConnectedToServer(NetworkRunner runner) { }
@@ -125,6 +110,7 @@ namespace Fusion.XR.Host
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
         public void OnSceneLoadDone(NetworkRunner runner) { }
         public void OnSceneLoadStart(NetworkRunner runner) { }
+        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
         #endregion
     }
 

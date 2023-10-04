@@ -287,6 +287,7 @@
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Locomotion\Fader.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\UI\UIPointer.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\PlayerRotation.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\Knuckle.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Utilities\FusionScalableIMGUI.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\Slider.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\PlayerClimbing.cs" />
@@ -298,7 +299,6 @@
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\HandPoser.cs" />
     <Compile Include="Assets\Scripts\DebugIng\ConsolToUI.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionGraph.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\Knuckle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BNG Framework\Integrations\PUN\Readme.txt" />
@@ -1031,6 +1031,10 @@
       <Project>{06F4C482-8C11-AE68-EC8A-83E39C32FCA2}</Project>
       <Name>Unity.RenderPipelines.Universal.Shaders</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj">
+      <Project>{A85B474D-9E93-EF06-29BA-0912C72CB48D}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{7BD0CA92-A90F-DCC7-FDB4-241F6355A357}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -1071,6 +1075,10 @@
       <Project>{9BCFC5B1-E4E7-543D-B800-042980850A77}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj">
+      <Project>{20311CBA-0175-2B0E-08A7-21B6AE67D5CE}</Project>
+      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.Features.MetaQuestSupport.csproj">
       <Project>{8297C529-1363-9EB3-42EA-F4A97694CEB1}</Project>
       <Name>Unity.XR.OpenXR.Features.MetaQuestSupport</Name>
@@ -1086,6 +1094,10 @@
     <ProjectReference Include="Unity.XR.CoreUtils.Editor.csproj">
       <Project>{1349AAFD-7BC2-9D4A-9DE2-AAEB5790F413}</Project>
       <Name>Unity.XR.CoreUtils.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Editor.csproj">
+      <Project>{E2C2D0FA-D4C9-CE99-3784-EDF9A7A6609E}</Project>
+      <Name>Unity.XR.Hands.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Fusion.Editor.csproj">
       <Project>{DA7C507D-A5FA-FBE5-1574-950373364BAC}</Project>
@@ -1146,6 +1158,10 @@
     <ProjectReference Include="Unity.Sysroot.Linux_x86_64.csproj">
       <Project>{420A889E-2C24-7F2E-7EFA-35186E3ABD00}</Project>
       <Name>Unity.Sysroot.Linux_x86_64</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj">
+      <Project>{31D65FA4-8EA5-E55C-B86A-84551AAC5FA0}</Project>
+      <Name>Unity.XR.Hands.Samples.VisualizerSample</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Management.Editor.csproj">
       <Project>{9DCB1B83-307D-CE08-3E6A-8BD49F3FD868}</Project>
@@ -1231,6 +1247,10 @@
       <Project>{A015FFCA-5AE5-EB9E-09D0-275C34064B00}</Project>
       <Name>UnityEditor.XR.LegacyInputHelpers</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.XR.Hands.csproj">
+      <Project>{2036836F-769D-FA6F-17B6-97AE045A1F34}</Project>
+      <Name>Unity.XR.Hands</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.csproj">
       <Project>{6C8ADF98-4F82-AAA8-F3EE-EDD006968994}</Project>
       <Name>Unity.XR.OpenXR</Name>
@@ -1266,26 +1286,6 @@
     <ProjectReference Include="Unity.SysrootPackage.Editor.csproj">
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.XR.Hands.Editor.csproj">
-      <Project>{E2C2D0FA-D4C9-CE99-3784-EDF9A7A6609E}</Project>
-      <Name>Unity.XR.Hands.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.XR.Hands.csproj">
-      <Project>{2036836F-769D-FA6F-17B6-97AE045A1F34}</Project>
-      <Name>Unity.XR.Hands</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj">
-      <Project>{31D65FA4-8EA5-E55C-B86A-84551AAC5FA0}</Project>
-      <Name>Unity.XR.Hands.Samples.VisualizerSample</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj">
-      <Project>{A85B474D-9E93-EF06-29BA-0912C72CB48D}</Project>
-      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj">
-      <Project>{20311CBA-0175-2B0E-08A7-21B6AE67D5CE}</Project>
-      <Name>Unity.XR.Interaction.Toolkit.Samples.Hands.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
