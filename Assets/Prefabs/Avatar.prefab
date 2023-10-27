@@ -555,6 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823571}
+  receiveDamage: 0
 --- !u!1 &4703076576874164645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823567}
+  receiveDamage: 0
 --- !u!1 &4703076577263813891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823572}
+  receiveDamage: 1
 --- !u!1 &4703076577347350721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,6 +1770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823569}
+  receiveDamage: 0
 --- !u!1 &4703076577656988587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823579}
+  receiveDamage: 1
 --- !u!1 &4703076577666223003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,6 +2067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823581}
+  receiveDamage: 0
 --- !u!1 &4703076577761699115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,6 +2300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823561}
+  receiveDamage: 0
 --- !u!1 &4703076577786379915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,6 +2674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823582}
+  receiveDamage: 0
 --- !u!1 &4703076578157652662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823563}
+  receiveDamage: 0
 --- !u!1 &4703076578400893255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,6 +3073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823559}
+  receiveDamage: 0
 --- !u!1 &4703076578578515027
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,6 +3981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823555}
+  receiveDamage: 0
 --- !u!1 &4703076578614742717
 GameObject:
   m_ObjectHideFlags: 0

@@ -960,13 +960,13 @@
       <Project>{6528F94B-330D-3E90-E3D2-3AED5A8EF993}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{0B18EF09-262A-3449-EB23-766A23AB6E4B}</Project>
-      <Name>Unity.VisualScripting.Flow</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
       <Project>{58640E13-B11C-4013-BDC1-C1B5D65BF4B7}</Project>
       <Name>Unity.PlasticSCM.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
+      <Project>{0B18EF09-262A-3449-EB23-766A23AB6E4B}</Project>
+      <Name>Unity.VisualScripting.Flow</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.Features.OculusQuestSupport.csproj">
       <Project>{176441EE-6E19-67CD-8929-09E436B1D5B1}</Project>

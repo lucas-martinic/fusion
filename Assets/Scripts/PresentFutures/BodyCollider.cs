@@ -4,6 +4,7 @@ public class BodyCollider : MonoBehaviour
 {
     [SerializeField] Avatar avatar;
     public Collider _collider;
+    [SerializeField] private bool receiveDamage = false;
 
     //Fill values in editor automatically
     private void OnValidate()
@@ -27,7 +28,7 @@ public class BodyCollider : MonoBehaviour
         if (onCooldown) return;
         Debug.Log("Hit " + _collider.name);
         onCooldown = true;
-        avatar.ColliderHit(_collider, direction, speed, position);
+        avatar.ColliderHit(_collider, direction, speed, position, receiveDamage);
     }
 
     private void Update()

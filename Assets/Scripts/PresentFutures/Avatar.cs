@@ -53,7 +53,7 @@ public class Avatar : NetworkBehaviour
         }
     }
 
-    public void ColliderHit(Collider collider, Vector3 direction, float hitForce, Vector3 position)
+    public void ColliderHit(Collider collider, Vector3 direction, float hitForce, Vector3 position, bool receiveDamage)
     {
         //If it's not our avatar, we can hit it
         if (!HasStateAuthority)
@@ -66,7 +66,11 @@ public class Avatar : NetworkBehaviour
                     //Local hit reaction
                     hitReaction.Hit(colliders[i], direction * hitForce, position);
                     //Add one point, this can be used for different amounts in the future
-                    AddPoints(1);
+                    if (receiveDamage)
+                    {
+                        //Calculate points/Health
+                        AddPoints(1);
+                    }
                     //Remote hit reaction
                     RPC_HitReaction(i, direction, hitForce, position);
                     return;
