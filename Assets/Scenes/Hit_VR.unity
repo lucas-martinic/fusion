@@ -1351,6 +1351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2b2176e954e644590cba2a98f7d80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 981031743}
+  handL: {fileID: 334421050}
+  handR: {fileID: 152976648}
   headOffset: {fileID: 407655274}
   lHandOffset: {fileID: 735851957}
   rHandOffset: {fileID: 1580034785}
@@ -1988,6 +1991,8 @@ MonoBehaviour:
   stateText: {fileID: 777087364}
   roundTime: 5
   matchFinished: 0
+  ringCollider: {fileID: 1179932945}
+  maxTimeOutOfRing: 3
 --- !u!114 &883924777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2887,7 +2892,7 @@ GameObject:
   - component: {fileID: 1179932944}
   - component: {fileID: 1179932945}
   m_Layer: 0
-  m_Name: InsideCollider
+  m_Name: InsideRingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

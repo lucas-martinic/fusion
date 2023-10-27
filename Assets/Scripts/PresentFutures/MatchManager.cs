@@ -15,6 +15,7 @@ public class MatchManager : NetworkBehaviour
         Round3 = 5,
         Finished = 6
     }
+
     [SerializeField] private MatchState matchState = MatchState.Waiting;
 
     [SerializeField] GameObject xrOrigin;
@@ -44,6 +45,12 @@ public class MatchManager : NetworkBehaviour
     int networkedScore2 { get; set; }
     [Networked(OnChanged = nameof(NetworkMatchStateChanged))]
     int networkedMatchState { get; set; }
+
+    [Header("RingBounds")]
+    //Ring Bounds
+    [SerializeField] private Collider ringCollider;
+    [SerializeField] private float maxTimeOutOfRing = 3;
+    private float playerOutOfRingCounter = 0;
 
     private void Start()
     {
@@ -159,6 +166,32 @@ public class MatchManager : NetworkBehaviour
                 }
             }
         }
+
+        //If a match is playing, check if within ring bounds
+        if((int)matchState == 1 || (int)matchState == 3 || (int)matchState == 5)
+        {
+            CheckIfWithinRing();
+        }
+    }
+
+    private void CheckIfWithinRing()
+    {
+        if(ringCollider.bounds.Contains(Player.Instance.head.position)
+            && ringCollider.bounds.Contains(Player.Instance.handL.position)
+                && ringCollider.bounds.Contains(Player.Instance.handR.position))
+        {
+            playerOutOfRingCounter += Time.deltaTime;
+            if(playerOutOfRingCounter > maxTimeOutOfRing)
+            {
+                EndRound();
+                Disqualified();
+            }
+        }
+    }
+
+    private void Disqualified()
+    {
+
     }
 
     private void MoveToSpawnPos()

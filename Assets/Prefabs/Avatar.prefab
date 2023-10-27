@@ -4025,6 +4025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4703076578623806992}
   - component: {fileID: 4703076578623806995}
+  - component: {fileID: 8091406231402886136}
   - component: {fileID: 4703076578623806993}
   - component: {fileID: 4703076578623807006}
   m_Layer: 0
@@ -4086,6 +4087,34 @@ MonoBehaviour:
   - {fileID: 4703076576811823563}
   - {fileID: 4703076576811823579}
   nonCollisionLayer: 4
+--- !u!114 &8091406231402886136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703076578623806994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40bdd4d89a94b3e4a8da2124ee5bcb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ik: {fileID: 4703076578578515036}
+  maxHealth: 100
+  currentHealth: 0
+  minDamage: 1
+  maxDamage: 5
+  minVelocity: 0
+  maxVelocity: 0
+  headshotMultiplier: 0
+  respawnTime: 8
+  hurtScreen: {fileID: 0}
+  mildHurtScreen: {fileID: 0}
+  regeneration: 1
+  damageAnimator: {fileID: 0}
+  respawnScreen: {fileID: 0}
+  respawnTimer: {fileID: 0}
+  dead: 0
 --- !u!114 &4703076578623806993
 MonoBehaviour:
   m_ObjectHideFlags: 0
