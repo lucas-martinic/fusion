@@ -10,7 +10,18 @@ public class PlayerHealthManager : MonoBehaviour
     public float maxHealth, currentHealth, minDamage, maxDamage, minVelocity, maxVelocity, headshotMultiplier, respawnTime;
     [SerializeField] float regeneration;
     public bool dead;
+    [SerializeField] SkinnedMeshRenderer mainRenderer;
     [SerializeField] Rigidbody[] rigidbodies;
+    [SerializeField] NetworkObject knockoutAvatar;
+    [SerializeField] Avatar mainAvatar;
+    private NetworkRunner runner;
+    private NetworkObject koAvatar;
+    [SerializeField] Transform rootBone;
+
+    private void Start()
+    {
+        runner = FindObjectOfType<NetworkRunner>();
+    }
 
     private void Update()
     {
@@ -95,16 +106,22 @@ public class PlayerHealthManager : MonoBehaviour
     private void Death()
     {
         dead = true;
-        ik.enabled = false;
-        KinematicFalse();
+        if(koAvatar == null)
+        {
+            koAvatar = runner.Spawn(knockoutAvatar, transform.position, transform.rotation);
+            var knockoutAvatarComponent = koAvatar.gameObject.GetComponent<KnockoutAvatar>();
+            knockoutAvatarComponent.MatchBodyPosition(rootBone.GetComponentsInChildren<Transform>());
+        }
+        mainRenderer.enabled = false;
         StartCoroutine(RespawnTimer());
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void Respawn()
     {
-        KinematicTrue();
-        ik.enabled = true;
+        mainRenderer.enabled = true;
+        if(koAvatar)
+            runner.Despawn(koAvatar);
         Player.Instance.respawnScreen.SetActive(false);
         currentHealth = maxHealth / 2;
     }
@@ -114,6 +131,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         foreach (var item in rigidbodies)
         {
+            item.velocity = Vector3.zero;
+            item.angularVelocity = Vector3.zero;
             item.isKinematic = false;
         }
     }

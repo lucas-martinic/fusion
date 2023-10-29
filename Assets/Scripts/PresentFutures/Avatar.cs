@@ -7,8 +7,8 @@ public class Avatar : NetworkBehaviour
     [SerializeField] VRIK vrIK;
 
     [SerializeField] Transform headTarget;
-    [SerializeField] Transform leftArmTarget;
-    [SerializeField] Transform rightArmTarget;
+    public Transform leftArmTarget;
+    public Transform rightArmTarget;
 
     [SerializeField] Transform headBone;
 
@@ -23,6 +23,8 @@ public class Avatar : NetworkBehaviour
     [SerializeField] AudioSource hitAudioSource;
 
     [SerializeField] PlayerHealthManager healthManager;
+
+    [SerializeField] bool dontDestroyOwnBodyColliders;
 
     private void Start()
     {
@@ -40,9 +42,13 @@ public class Avatar : NetworkBehaviour
 
             //We destroy our own BodyColliders if its our own avatar (we don't wanna hit ourselves)
             var children = avatarParent.GetComponentsInChildren<BodyCollider>(includeInactive: true);
-            foreach (var item in children)
+
+            if (!dontDestroyOwnBodyColliders)
             {
-                Destroy(item);
+                foreach (var item in children)
+                {
+                    Destroy(item);
+                }
             }
         }
         else
@@ -58,27 +64,26 @@ public class Avatar : NetworkBehaviour
 
     public void ColliderHit(Collider collider, Vector3 direction, float hitForce, Vector3 position, bool receiveDamage)
     {
-        //If it's not our avatar, we can hit it
-        if (!HasStateAuthority)
+        for (int i = 0; i < colliders.Length; i++)
         {
-            for (int i = 0; i < colliders.Length; i++)
+            //Search for the collider that was hit
+            if (colliders[i] == collider)
             {
-                //Search for the collider that was hit
-                if (colliders[i] == collider)
+                //Local hit reaction
+                hitReaction.Hit(colliders[i], direction * hitForce, position);
+                //Add one point, this can be used for different amounts in the future
+                if (receiveDamage)
                 {
-                    //Local hit reaction
-                    hitReaction.Hit(colliders[i], direction * hitForce, position);
-                    //Add one point, this can be used for different amounts in the future
-                    if (receiveDamage)
-                    {
-                        //Calculate points/Health
-                        var damageDone = healthManager.TakeDamage(hitForce, collider.gameObject);
-                        AddPoints((int)damageDone);
-                    }
-                    //Remote hit reaction
-                    RPC_HitReaction(i, direction, hitForce, position);
-                    return;
+                    //Calculate points/Health
+                    var damageDone = healthManager.TakeDamage(hitForce, collider.gameObject);
+                    AddPoints((int)damageDone);
                 }
+                //Remote hit reaction
+                if(healthManager.currentHealth > 0)
+                {
+                    RPC_HitReaction(i, direction, hitForce, position);
+                }
+                return;
             }
         }
     }
