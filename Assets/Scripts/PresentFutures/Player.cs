@@ -18,4 +18,7 @@ public class Player : Singleton<Player>
     public GameObject respawnScreen;
     public TextMeshProUGUI respawnTimer;
     public Animator damageAnimator;
+
+    //Logs
+    public TextMeshProUGUI punchDebugText;
 }

@@ -21,6 +21,8 @@ public class Avatar : NetworkBehaviour
 
     private MatchManager matchManager;
 
+    [SerializeField] PlayerHealthManager healthManager;
+
     private void Start()
     {
         matchManager = FindObjectOfType<MatchManager>();
@@ -69,7 +71,8 @@ public class Avatar : NetworkBehaviour
                     if (receiveDamage)
                     {
                         //Calculate points/Health
-                        AddPoints(1);
+                        var damageDone = healthManager.TakeDamage(hitForce, collider.gameObject);
+                        AddPoints((int)damageDone);
                     }
                     //Remote hit reaction
                     RPC_HitReaction(i, direction, hitForce, position);
@@ -79,17 +82,16 @@ public class Avatar : NetworkBehaviour
         }
     }
 
-    //Add points to score
-    private void AddPoints(int points)
-    {
-        if (matchManager.matchFinished) return;
-        matchManager.AddPoints(points, Runner.LocalPlayer.PlayerId);
-    }
-
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_HitReaction(int colliderIndex, Vector3 direction, float hitForce, Vector3 position)
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
+    }
+
+    private void AddPoints(int points)
+    {
+        if (matchManager.matchFinished) return;
+        matchManager.AddPoints(points, Runner.LocalPlayer.PlayerId);
     }
 
     private void Update()

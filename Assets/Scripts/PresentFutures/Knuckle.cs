@@ -8,6 +8,7 @@ public class Knuckle : MonoBehaviour
     private Vector3[] previousPositions = new Vector3[3];
     private Vector3 direction;
     private float speed;
+    [SerializeField] PunchHeuristic punchHeuristc;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class Knuckle : MonoBehaviour
                 if (hit.collider.TryGetComponent(out BodyCollider bodyCollider))
                 {
                     bodyCollider.Hit(direction, speed, hit.point);
+                    punchHeuristc.ProcessCollision();
                 }
             }
         }

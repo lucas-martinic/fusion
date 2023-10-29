@@ -18,41 +18,45 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth += regeneration * Time.deltaTime;
     }
 
-    public void TakeDamage(float velocity, Vector3 direction, GameObject hitObject)
+    public float TakeDamage(float velocity, GameObject hitObject)
     {
-        SyncDamageRPC(velocity, direction, hitObject.tag);
+        return SyncDamageRPC(velocity, hitObject.tag);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    void SyncDamageRPC(float velocity, Vector3 direction, string hitObjectTag)
+    float SyncDamageRPC(float velocity, string hitObjectTag)
     {
+        float damageDone = 0;
         if (!dead)
         {
             if (hitObjectTag == "PlayerHead")
             {
                 Player.Instance.damageAnimator.SetTrigger("HeadHit");
 
-                currentHealth -= CalculateDamage(velocity) * headshotMultiplier;
+                damageDone = CalculateDamage(velocity) * headshotMultiplier;
+                currentHealth -= damageDone;
 
                 Debug.Log("VELOCITY: " + velocity + " DAMAGE: " + CalculateDamage(velocity) * headshotMultiplier);
 
                 StartCoroutine(EnableHealthAnimationsAfterDelay());
+
             }
             else if (hitObjectTag == "Player")
             {
                 Player.Instance.damageAnimator.SetTrigger("BodyHit");
 
-                currentHealth -= CalculateDamage(velocity); ;
-
+                damageDone = CalculateDamage(velocity);
+                currentHealth -= damageDone;
                 Debug.Log("VELOCITY: " + velocity + " DAMAGE: " + CalculateDamage(velocity));
 
                 StartCoroutine(EnableHealthAnimationsAfterDelay());
             }
 
-            else { return; }
+            else { return damageDone; }
             if (currentHealth <= 0)
                 Death();
         }
+        return damageDone;
     }
 
     private float CalculateDamage(float velocity)

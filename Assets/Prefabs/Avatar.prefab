@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5794414076741851932}
   - component: {fileID: 9091472882555766920}
   - component: {fileID: 3578794665813721297}
+  - component: {fileID: 4369135073106201029}
   m_Layer: 14
   m_Name: KnuckleR
   m_TagString: Untagged
@@ -114,6 +115,23 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4369135073106201029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732801733563766319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbb4999056417142aa5483f162c7f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrontalDirection: {fileID: 1732801733563766319}
+  AngleThresholdStraight: 45
+  AngleThresholdUppercut: 20
+  AngleThresholdBodyblow: 20
+  AngleThresholdHook: 20
 --- !u!1 &4703076576695597518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1370,7 @@ GameObject:
   - component: {fileID: 2412815167875340543}
   m_Layer: 0
   m_Name: Bip002 Head
-  m_TagString: Untagged
+  m_TagString: PlayerHead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1787,7 +1805,7 @@ GameObject:
   - component: {fileID: 2811837442999398839}
   m_Layer: 0
   m_Name: Bip002 Spine1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3089,7 +3107,7 @@ GameObject:
   - component: {fileID: 4703076578578515036}
   m_Layer: 0
   m_Name: Dummy Humanoid Ragdoll
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5347,6 +5365,7 @@ GameObject:
   - component: {fileID: 2367008255691534782}
   - component: {fileID: 9016988029806787250}
   - component: {fileID: 322136169242237957}
+  - component: {fileID: 6245546124655824849}
   m_Layer: 13
   m_Name: KnuckleL
   m_TagString: Untagged
@@ -5448,6 +5467,23 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6245546124655824849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339025907256027256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbb4999056417142aa5483f162c7f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrontalDirection: {fileID: 7339025907256027256}
+  AngleThresholdStraight: 45
+  AngleThresholdUppercut: 20
+  AngleThresholdBodyblow: 20
+  AngleThresholdHook: 20
 --- !u!1 &8342434623981910218
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,13 +5,6 @@ using TMPro;
 
 public class PunchHeuristic : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _text;
-    /// <summary>
-    /// Tag on the collider(s) to react to. Leave empty to react any collider.
-    /// </summary>
-    [Tooltip("Tag on the collider(s) to react to. Leave empty to react any collider.")]
-    public string ColliderTag = "";
-
     /// <summary>
     /// Which direction is considered "forward" on the hand game object (direction of punch, where the knuckles are).
     /// </summary>
@@ -42,30 +35,7 @@ public class PunchHeuristic : MonoBehaviour
     [Tooltip("Angular threshold (in degrees) between accepting a hook as a 'punch' and a 'slap' (lower is more strickt).")]
     public float AngleThresholdHook = 20;
 
-    /// <summary>
-    /// Source of the position/rotation of the players head. (Defaults to main camera if left empty).
-    /// </summary>
-    [Tooltip("Source of the position/rotation of the players head. (Defaults to main camera if left empty).")]
-    public GameObject PlayerHead = null;
-
     private List<Vector3> LastPositions = new List<Vector3>();
-
-    void Start()
-    {
-        if (this.PlayerHead == null) {
-            this.PlayerHead = Camera.main.gameObject;
-        }
-        GameObject obj = GameObject.Find("PunchText");
-        if (obj != null)
-        {
-            _text = obj.GetComponent<TextMeshProUGUI>();
-        }
-        else
-        {
-            Debug.Log("Could not find object named 'PunchText'");
-        }
-
-    }
 
     void Update()
     {
@@ -74,7 +44,6 @@ public class PunchHeuristic : MonoBehaviour
             LastPositions.RemoveRange(0, LastPositions.Count - 3);
         }
     }
-
 
     public bool ProcessCollision() //Collider collider
     {
@@ -92,7 +61,7 @@ public class PunchHeuristic : MonoBehaviour
         : this.transform.forward;
     fistDirection.Normalize();
 
-    Vector3 front = this.transform.position - this.PlayerHead.transform.position;
+    Vector3 front = this.transform.position - Player.Instance.head.transform.position;
     front.y = 0;
     front.Normalize();
     Vector3 up = Vector3.up;
@@ -101,7 +70,7 @@ public class PunchHeuristic : MonoBehaviour
 
     motionDirection = frameOfReference * motionDirection;
     fistDirection = frameOfReference * fistDirection;
-    Vector3 fistPosition = frameOfReference * (this.transform.position - this.PlayerHead.transform.position);
+    Vector3 fistPosition = frameOfReference * (this.transform.position - Player.Instance.head.transform.position);
     float angle = Vector3.Angle(motionDirection, fistDirection);
 
     string msg = "";
@@ -167,14 +136,9 @@ public class PunchHeuristic : MonoBehaviour
         }
     }
 
-    Debug.Log(msg);
-    if(_text){
-        _text.text = msg;
-    }
-    
+        Debug.Log(msg);
+        Player.Instance.punchDebugText.text = msg;
 
-    return validMotion;
+        return validMotion;
     }
-
- 
-}
+ }
