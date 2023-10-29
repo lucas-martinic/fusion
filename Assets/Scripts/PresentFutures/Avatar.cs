@@ -20,6 +20,7 @@ public class Avatar : NetworkBehaviour
     [SerializeField] int nonCollisionLayer;
 
     private MatchManager matchManager;
+    [SerializeField] AudioSource hitAudioSource;
 
     [SerializeField] PlayerHealthManager healthManager;
 
@@ -86,6 +87,8 @@ public class Avatar : NetworkBehaviour
     public void RPC_HitReaction(int colliderIndex, Vector3 direction, float hitForce, Vector3 position)
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
+        hitAudioSource.transform.position = colliders[colliderIndex].transform.position;
+        hitAudioSource.Play();
     }
 
     private void AddPoints(int points)
