@@ -63,8 +63,8 @@
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Messaging\Messenger.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Messaging\Serializer.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\ProjectGeneration\ProjectProperties.cs" />
-    <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Testing\TestAdaptor.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Testing\TestRunnerCallbacks.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Testing\TestAdaptor.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\UnityInstallation.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Messaging\Deserializer.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\Editor\Testing\TestResultAdaptor.cs" />

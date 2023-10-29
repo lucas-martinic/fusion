@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\PresentFutures\Singleton.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\JoystickVehicleControl.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Utilities\FusionUnitySceneManagerUtils.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\PlayerHealthManager.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\PlaySoundOnGrab.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\HandModelSelector.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\Waypoint.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\SpawnPoints\ISpawnPointPrototype.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\HandCollision.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\TeleportPlayerOnEnter.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\DisplayInputData.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\HeadCollisionFade.cs" />
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Grabbing\NetworkKinematicGrabbable.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\RemoteGrabber.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\Components\CharacterConstraint.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\GrabbableHighlightMaterial.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Assistants\FusionAssistants.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\InputData.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\BurstDeltaCompressor.cs" />
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\EditorHandle.cs" />
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\SavePoseBinding.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="Assets\BNG Framework\Scripts\UI\VRKeyboardKey.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\CommonSceneObject.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\SnapZoneScale.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\PunchHeuristic.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\JointHelper.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionProfiler.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Extras\FPSText.cs" />
@@ -299,10 +303,6 @@
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\HandPoser.cs" />
     <Compile Include="Assets\Scripts\DebugIng\ConsolToUI.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionGraph.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\InputData.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\PlayerHealthManager.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\PunchHeuristic.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\DisplayInputData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BNG Framework\Integrations\PUN\Readme.txt" />
@@ -1195,13 +1195,13 @@
       <Project>{6528F94B-330D-3E90-E3D2-3AED5A8EF993}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
-      <Project>{58640E13-B11C-4013-BDC1-C1B5D65BF4B7}</Project>
-      <Name>Unity.PlasticSCM.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
       <Project>{0B18EF09-262A-3449-EB23-766A23AB6E4B}</Project>
       <Name>Unity.VisualScripting.Flow</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
+      <Project>{58640E13-B11C-4013-BDC1-C1B5D65BF4B7}</Project>
+      <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.Features.OculusQuestSupport.csproj">
       <Project>{176441EE-6E19-67CD-8929-09E436B1D5B1}</Project>

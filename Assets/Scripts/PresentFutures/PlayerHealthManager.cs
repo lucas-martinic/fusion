@@ -8,14 +8,9 @@ public class PlayerHealthManager : MonoBehaviour
 {
     [SerializeField] VRIK ik;
     public float maxHealth, currentHealth, minDamage, maxDamage, minVelocity, maxVelocity, headshotMultiplier, respawnTime;
-    [SerializeField] private GameObject hurtScreen, mildHurtScreen;
     [SerializeField] float regeneration;
-
-    [SerializeField] private Animator damageAnimator;
-    [SerializeField] private GameObject respawnScreen;
-    //private GameObject deadBody;
-    [SerializeField] private TextMeshProUGUI respawnTimer;
     public bool dead;
+    [SerializeField] Rigidbody[] rigidbodies;
 
     private void Update()
     {
@@ -35,7 +30,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             if (hitObjectTag == "PlayerHead")
             {
-                damageAnimator.SetTrigger("HeadHit");
+                Player.Instance.damageAnimator.SetTrigger("HeadHit");
 
                 currentHealth -= CalculateDamage(velocity) * headshotMultiplier;
 
@@ -45,7 +40,7 @@ public class PlayerHealthManager : MonoBehaviour
             }
             else if (hitObjectTag == "Player")
             {
-                damageAnimator.SetTrigger("BodyHit");
+                Player.Instance.damageAnimator.SetTrigger("BodyHit");
 
                 currentHealth -= CalculateDamage(velocity); ;
 
@@ -73,10 +68,10 @@ public class PlayerHealthManager : MonoBehaviour
     private IEnumerator RespawnTimer()
     {
         float timer = respawnTime;
-        respawnScreen.SetActive(true);
+        Player.Instance.respawnScreen.SetActive(true);
         while (dead)
         {
-            respawnTimer.text = "Respawning in " + timer.ToString("F2") + " seconds";
+            Player.Instance.respawnTimer.text = "Respawning in " + timer.ToString("F2") + " seconds";
             timer -= Time.deltaTime;
             if (timer < 0)
                 dead = false;
@@ -92,29 +87,38 @@ public class PlayerHealthManager : MonoBehaviour
         Death();
     }
 
+    [ContextMenu("Death")]
     private void Death()
     {
         dead = true;
-        /*ik.gameObject.SetActive(false);
-        deadBody = Instantiate(ik.gameObject, ik.transform.position, ik.transform.rotation);
-        deadBody.SetActive(true);
-
-        /*foreach (Rigidbody rb in deadBody.GetComponentsInChildren<Rigidbody>())
-            rb.isKinematic = false;
-        deadBody.GetComponent<Animator>().enabled = false;
-        deadBody.GetComponent<VRIK>().enabled = false;
-        */
+        ik.enabled = false;
+        KinematicFalse();
         StartCoroutine(RespawnTimer());
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void Respawn()
     {
-        /*Destroy(deadBody);
-        deadBody = null;*/
-        respawnScreen.SetActive(false);
-        ik.gameObject.SetActive(true);
-
+        KinematicTrue();
+        ik.enabled = true;
+        Player.Instance.respawnScreen.SetActive(false);
         currentHealth = maxHealth / 2;
+    }
+
+    [ContextMenu("KinematicFalse")]
+    private void KinematicFalse()
+    {
+        foreach (var item in rigidbodies)
+        {
+            item.isKinematic = false;
+        }
+    }
+    [ContextMenu("KinematicTrue")]
+    private void KinematicTrue()
+    {
+        foreach (var item in rigidbodies)
+        {
+            item.isKinematic = true;
+        }
     }
 }

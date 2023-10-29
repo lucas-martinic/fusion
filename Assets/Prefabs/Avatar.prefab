@@ -4101,20 +4101,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ik: {fileID: 4703076578578515036}
   maxHealth: 100
-  currentHealth: 0
+  currentHealth: 100
   minDamage: 1
   maxDamage: 5
   minVelocity: 0
   maxVelocity: 0
   headshotMultiplier: 0
   respawnTime: 8
-  hurtScreen: {fileID: 0}
-  mildHurtScreen: {fileID: 0}
   regeneration: 1
-  damageAnimator: {fileID: 0}
-  respawnScreen: {fileID: 0}
-  respawnTimer: {fileID: 0}
   dead: 0
+  rigidbodies:
+  - {fileID: 4703076578043316774}
+  - {fileID: 4703076577570699843}
+  - {fileID: 4703076578511666253}
+  - {fileID: 4703076577234706946}
+  - {fileID: 4703076577703727299}
+  - {fileID: 4703076577656988584}
+  - {fileID: 4703076577338679369}
+  - {fileID: 4703076577780420490}
+  - {fileID: 4703076578601761232}
+  - {fileID: 4703076578385691698}
+  - {fileID: 4703076576873773910}
 --- !u!114 &4703076578623806993
 MonoBehaviour:
   m_ObjectHideFlags: 0

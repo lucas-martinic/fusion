@@ -60,8 +60,8 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Utilities\Scopes\HorizontalScope.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Window\TimelineWindow_Breadcrumbs.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\treeview\Control.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Actions\Invoker.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\CustomEditors\CustomTimelineEditorCache.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Actions\Invoker.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Manipulators\Utils\EditModeRippleUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Manipulators\Utils\EditModeMixUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.6.4\Editor\Manipulators\Sequence\TrackZoom.cs" />
