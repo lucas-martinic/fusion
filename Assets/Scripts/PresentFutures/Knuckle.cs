@@ -9,6 +9,7 @@ public class Knuckle : MonoBehaviour
     private Vector3 direction;
     private float speed;
     [SerializeField] PunchHeuristic punchHeuristc;
+    [SerializeField] PlayerHealthManager healthManager;
     private BodyCollider colliderCandidate;
     private float lastDistance;
     private bool probablyGonnaHit;
@@ -40,6 +41,9 @@ public class Knuckle : MonoBehaviour
 
         // Calculate the speed as the average speed of the last 2 frames.
         speed = (Vector3.Distance(previousPositions[0], previousPositions[1]) + Vector3.Distance(previousPositions[1], previousPositions[2])) / (2 * Time.deltaTime);
+
+        if (healthManager)
+            if (healthManager.dead) return;
 
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 0.5f, layerMask, QueryTriggerInteraction.Collide))
         {

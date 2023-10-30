@@ -116,6 +116,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   punchHeuristc: {fileID: 4369135073106201029}
+  healthManager: {fileID: 8091406231402886136}
 --- !u!114 &4369135073106201029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5590,6 +5591,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   punchHeuristc: {fileID: 6245546124655824849}
+  healthManager: {fileID: 8091406231402886136}
 --- !u!114 &6245546124655824849
 MonoBehaviour:
   m_ObjectHideFlags: 0
