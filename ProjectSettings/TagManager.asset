@@ -22,8 +22,8 @@ TagManager:
   - CarvBoard
   - LeftNetworkHand
   - RightNetworkHand
-  - 
-  - 
+  - NonCollision
+  - Floor
   - 
   - 
   - 

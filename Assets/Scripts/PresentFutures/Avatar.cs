@@ -92,7 +92,16 @@ public class Avatar : NetworkBehaviour
     public void RPC_HitReaction(int colliderIndex, Vector3 direction, float hitForce, Vector3 position)
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
+        PlayHitSound(colliderIndex);
+    }
+
+    public void PlayHitSound(int colliderIndex)
+    {
         hitAudioSource.transform.position = colliders[colliderIndex].transform.position;
+        hitAudioSource.Play();
+    }
+    public void PlayHitSound()
+    {
         hitAudioSource.Play();
     }
 

@@ -105,6 +105,7 @@ public class PlayerHealthManager : MonoBehaviour
     [ContextMenu("Death")]
     private void Death()
     {
+        mainAvatar.PlayHitSound();
         dead = true;
         if(koAvatar == null)
         {

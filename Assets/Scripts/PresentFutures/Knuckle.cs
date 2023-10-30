@@ -9,6 +9,9 @@ public class Knuckle : MonoBehaviour
     private Vector3 direction;
     private float speed;
     [SerializeField] PunchHeuristic punchHeuristc;
+    private BodyCollider colliderCandidate;
+    private float lastDistance;
+    private bool probablyGonnaHit;
 
     void Start()
     {
@@ -38,14 +41,36 @@ public class Knuckle : MonoBehaviour
         // Calculate the speed as the average speed of the last 2 frames.
         speed = (Vector3.Distance(previousPositions[0], previousPositions[1]) + Vector3.Distance(previousPositions[1], previousPositions[2])) / (2 * Time.deltaTime);
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 0.25f, layerMask, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 0.5f, layerMask, QueryTriggerInteraction.Collide))
         {
-            if (hit.distance <= hitDistance)
+            if (hit.collider.TryGetComponent(out BodyCollider bodyCollider))
             {
-                if (hit.collider.TryGetComponent(out BodyCollider bodyCollider))
+                colliderCandidate = bodyCollider;
+
+                if (lastDistance > hit.distance)
+                {
+                    probablyGonnaHit = true;
+                }
+                else
+                {
+                    probablyGonnaHit = false;
+                }
+                lastDistance = hit.distance;
+
+                if (hit.distance <= hitDistance)
                 {
                     bodyCollider.Hit(direction, speed, hit.point);
                     punchHeuristc.ProcessCollision();
+                }
+            }
+            else
+            {
+                if (probablyGonnaHit)
+                {
+                    colliderCandidate.Hit(direction, speed, hit.point);
+                    punchHeuristc.ProcessCollision();
+                    probablyGonnaHit = false;
+                    lastDistance = 0;
                 }
             }
         }
