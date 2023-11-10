@@ -2065,6 +2065,8 @@ MonoBehaviour:
     type: 3}
   voiceSetup: {fileID: 5778787533146860584, guid: 07a2361a3b8cc9d489e08169e73320e2,
     type: 3}
+  recorder: {fileID: 0}
+  speaker: {fileID: 0}
   onWillConnect:
     m_PersistentCalls:
       m_Calls: []
@@ -2577,6 +2579,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   matchState: 0
   xrOrigin: {fileID: 673194961}
+  connectionManager: {fileID: 0}
   spawnPositions:
   - {fileID: 1247304387}
   - {fileID: 1786696120}
@@ -2588,6 +2591,8 @@ MonoBehaviour:
   score2Text: {fileID: 335666385}
   stateText: {fileID: 777087364}
   roundTime: 5
+  inputAction: {fileID: 978800011882943547, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   matchFinished: 0
   ringCollider: {fileID: 1179932945}
   maxTimeOutOfRing: 3

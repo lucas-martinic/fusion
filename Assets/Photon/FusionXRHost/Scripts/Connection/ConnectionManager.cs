@@ -34,8 +34,8 @@ namespace Fusion.XR.Host
         [Header("Local user spawner")]
         public NetworkObject userPrefab;
         public NetworkObject voiceSetup;
-        public Recorder recorder;
-        public Speaker speaker;
+        [HideInInspector] public Recorder recorder;
+        [HideInInspector] public Speaker speaker;
 
         [Header("Event")]
         public UnityEvent onWillConnect = new UnityEvent();

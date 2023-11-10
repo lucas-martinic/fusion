@@ -2,6 +2,7 @@ using Fusion;
 using Fusion.XR.Host;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //Manages the match logic
 public class MatchManager : NetworkBehaviour
@@ -32,6 +33,8 @@ public class MatchManager : NetworkBehaviour
 
     [SerializeField] private float roundTime = 60;
 
+    [SerializeField] InputActionReference inputAction;
+
     private float time = 0;
     int playersOnline = 0;
     int score1 = 0;
@@ -61,6 +64,13 @@ public class MatchManager : NetworkBehaviour
     private void Start()
     {
         time = roundTime;
+        inputAction.action.performed += ToggleVoiceChat;
+    }
+
+    private void ToggleVoiceChat(InputAction.CallbackContext obj)
+    {
+        if(connectionManager.recorder != null)
+            VoiceEnabled(!connectionManager.recorder.TransmitEnabled);
     }
 
     [ContextMenu("StartRound")]
@@ -70,17 +80,17 @@ public class MatchManager : NetworkBehaviour
         {
             case MatchState.Waiting:
                 networkedMatchState = (int)MatchState.Round1;
-                MoveToRingPos();
+                MoveToMatchPosition();
                 networkedTime = roundTime;
                 break;
             case MatchState.Break1:
                 networkedMatchState = (int)MatchState.Round2;
-                MoveToRingPos();
+                MoveToMatchPosition();
                 networkedTime = roundTime;
                 break;
             case MatchState.Break2:
                 networkedMatchState = (int)MatchState.Round3;
-                MoveToRingPos();
+                MoveToMatchPosition();
                 networkedTime = roundTime;
                 break;
             default:
@@ -95,11 +105,11 @@ public class MatchManager : NetworkBehaviour
         {
             case MatchState.Round1:
                 networkedMatchState = (int)MatchState.Break1;
-                MoveToSpawnPos();
+                MoveToCornerPosition();
                 break;
             case MatchState.Round2:
                 networkedMatchState = (int)MatchState.Break2;
-                MoveToSpawnPos();
+                MoveToCornerPosition();
                 break;
             case MatchState.Round3:
                 networkedMatchState = (int)MatchState.Finished;
@@ -225,22 +235,22 @@ public class MatchManager : NetworkBehaviour
     }
 
     //Enable/disable voice chat
-    public void VoiceEnabled(bool enabled)
+    private void VoiceEnabled(bool enabled)
     {
         connectionManager.recorder.TransmitEnabled = enabled;
         RPC_Mute(enabled);
     }
     [Rpc(RpcSources.All, RpcTargets.Proxies)]
-    public void RPC_Mute(bool enabled)
+    private void RPC_Mute(bool enabled)
     {
         connectionManager.speaker.enabled = enabled;
     }
 
-    private void MoveToSpawnPos()
+    private void MoveToCornerPosition()
     {
         xrOrigin.transform.position = spawnPositions[Runner.LocalPlayer.PlayerId].position;
     }
-    private void MoveToRingPos()
+    private void MoveToMatchPosition()
     {
         xrOrigin.transform.position = ringPositions[Runner.LocalPlayer.PlayerId].position;
     }
