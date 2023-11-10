@@ -152,9 +152,8 @@ public class MatchManager : NetworkBehaviour
     {
         if (HasStateAuthority)
         {
-            //If 2 playsers online, match starts
             if ((int)matchState == 1 || (int)matchState == 3 || (int)matchState == 5)
-            {
+            {                
                 if(time > 0)
                 {
                     networkedTime = time -= Time.deltaTime;
@@ -176,9 +175,9 @@ public class MatchManager : NetworkBehaviour
 
     private void CheckIfWithinRing()
     {
-        if(ringCollider.bounds.Contains(Player.Instance.head.position)
-            && ringCollider.bounds.Contains(Player.Instance.handL.position)
-                && ringCollider.bounds.Contains(Player.Instance.handR.position))
+        if(!ringCollider.bounds.Contains(Player.Instance.head.position)
+            && !ringCollider.bounds.Contains(Player.Instance.handL.position)
+                && !ringCollider.bounds.Contains(Player.Instance.handR.position))
         {
             playerOutOfRingCounter += Time.deltaTime;
             if(playerOutOfRingCounter > maxTimeOutOfRing)
@@ -191,7 +190,32 @@ public class MatchManager : NetworkBehaviour
 
     private void Disqualified()
     {
+        RPC_LostRound(Runner.LocalPlayer.PlayerId);
+    }
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_WonRound(int player)
+    {
+        if (player == 0)
+        {
+
+        }
+        else if (player == 1)
+        {
+
+        }
+    }
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_LostRound(int player)
+    {
+        if (player == 0)
+        {
+
+        }
+        else if (player == 1)
+        {
+
+        }
     }
 
     private void MoveToSpawnPos()

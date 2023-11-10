@@ -31,6 +31,7 @@ namespace Fusion.XR.Host
 
         [Header("Local user spawner")]
         public NetworkObject userPrefab;
+        public NetworkObject voiceSetup;
 
         [Header("Event")]
         public UnityEvent onWillConnect = new UnityEvent();
@@ -82,7 +83,7 @@ namespace Fusion.XR.Host
         #region INetworkRunnerCallbacks
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-            //If it's myself, spawn an avatar
+            //If it's myself, spawn an avatar and the voicechat setup
             if (player == runner.LocalPlayer)
             {
                 Player.Instance.transform.SetLocalPositionAndRotation
@@ -90,6 +91,8 @@ namespace Fusion.XR.Host
                     spawnPos[runner.LocalPlayer.PlayerId].rotation);
 
                 var networkPlayerObject = runner.Spawn(userPrefab);
+                var obj = runner.Spawn(voiceSetup, Player.Instance.head.position, Player.Instance.head.rotation, runner.LocalPlayer);
+                obj.transform.SetParent(Player.Instance.head.transform);
             }
         }
 

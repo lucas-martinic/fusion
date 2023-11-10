@@ -149,6 +149,7 @@
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\NetworkDebugStartGUI.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionStats\FusionStatsUtilities.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Helpers\HandleHelper.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\KnockoutAvatar.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\GrabbableHighlight.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\DamageCollider.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\Prototyping\Prefabs\FusionPrototypingPrefabs.cs" />
@@ -303,7 +304,7 @@
     <Compile Include="Assets\BNG Framework\HandPoser\Scripts\HandPoser.cs" />
     <Compile Include="Assets\Scripts\DebugIng\ConsolToUI.cs" />
     <Compile Include="Assets\Photon\Fusion\Scripts\FusionGraph.cs" />
-    <Compile Include="Assets\Scripts\PresentFutures\KnockoutAvatar.cs" />
+    <Compile Include="Assets\MetaAvatarsTemplateFusion\Scripts\SetMicrophone.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BNG Framework\Integrations\PUN\Readme.txt" />
@@ -311,11 +312,15 @@
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\BNG Framework\Integrations\Curved UI\Instructions.txt" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x86\webrtc-audio.dll" />
     <None Include="Assets\BNG Framework\Materials\ColumnGlowShaderLicense.txt" />
     <None Include="Assets\BNG Framework\HandPoser\Third-Party Notices.txt" />
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Common.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x86\opus_egpv.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86\AudioIn.dll" />
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Sockets.xml" />
+    <None Include="Assets\Photon\PhotonVoice\changes-voice.txt" />
     <None Include="Assets\BNG Framework\Textures\particleTextures.txt" />
     <None Include="Assets\BNG Framework\Fonts\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
@@ -323,6 +328,8 @@
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Realtime.xml" />
     <None Include="Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Common.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86_64\webrtc-audio.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\ARM\opus_egpv.dll" />
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Runtime.xml" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\NanoSockets\Static\NanoSockets.dll" />
     <None Include="Assets\BNG Framework\Integrations\Emerald AI\Instructions.txt" />
@@ -332,6 +339,7 @@
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Sockets.dll" />
     <None Include="Assets\BNG Framework\Integrations\Oculus Integration\Readme.txt" />
     <None Include="Assets\Photon\FusionXRHost\Shaders\Fader.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86_64\opus_egpv.dll" />
     <None Include="Assets\Photon\Fusion\release_history.txt" />
     <None Include="Assets\Samples\XR Interaction Toolkit\2.3.2\Tunneling Vignette\TunnelingVignette.shader" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\NanoSockets\Dynamic\NanoSockets.dll" />
@@ -341,6 +349,7 @@
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\ARM\webrtc-audio.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -349,7 +358,10 @@
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Metro\x64\libnanosockets.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Metro\x86\libnanosockets.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x64\webrtc-audio.dll" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\ARM\Photon.Voice.UWP.MediaExtensions.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x64\Photon.Voice.UWP.MediaExtensions.dll" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\BNG Framework\Integrations\Invector\Instructions.txt" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Windows\nanosockets.dll" />
@@ -358,7 +370,9 @@
     <None Include="Assets\BNG Framework\Sounds\license.txt" />
     <None Include="Assets\BNG Framework\Integrations\SteamVR\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86\opus_egpv.dll" />
     <None Include="Assets\BNG Framework\Materials\MobileColorShader.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86\webrtc-audio.dll" />
     <None Include="Assets\BNG Framework\Models\Hands\OculusHands\LICENSE.txt" />
     <None Include="Assets\Photon\Fusion\build_info.txt" />
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Realtime.dll" />
@@ -369,12 +383,16 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\BNG Framework\Third-Party Notices.txt" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\x86_64\AudioIn.dll" />
     <None Include="Assets\BNG Framework\HandPoser\Documentation.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x64\opus_egpv.dll" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WSA\x86\Photon.Voice.UWP.MediaExtensions.dll" />
     <None Include="Assets\BNG Framework\Documentation\Documentation.txt" />
     <None Include="Assets\BNG Framework\Integrations\WebXR\Readme.txt" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Metro\ARM\libnanosockets.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Photon\PhotonVoice\PhotonVoiceLibs\WebRTC-LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1291,6 +1309,38 @@
     <ProjectReference Include="Unity.SysrootPackage.Editor.csproj">
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="MicAmplifierEditor.Editor.csproj">
+      <Project>{97926E18-BDBE-E8DE-D4CB-2C19252077E4}</Project>
+      <Name>MicAmplifierEditor.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.API.csproj">
+      <Project>{FBF946A4-ED25-6912-E66D-B1E86B19B96C}</Project>
+      <Name>PhotonVoice.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Utilities.Editor.csproj">
+      <Project>{C004586C-BEC4-BCEA-B4EA-1C105FE4175E}</Project>
+      <Name>PhotonVoice.Utilities.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.Editor.csproj">
+      <Project>{D0105C0A-0149-ADA8-2ACC-1650C5AC2700}</Project>
+      <Name>PhotonVoice.Fusion.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonRealtime.csproj">
+      <Project>{68FDC807-7EF1-191B-19BF-8FB0818865B9}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.csproj">
+      <Project>{1CFC0DB2-7C86-83A6-B929-A71D8D1C3A07}</Project>
+      <Name>PhotonVoice.Fusion</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.csproj">
+      <Project>{B2C7C1C1-B50D-61FF-8136-842C6B005B81}</Project>
+      <Name>PhotonVoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Editor.csproj">
+      <Project>{1A761EF3-3E6E-B0AA-3522-EF21E5AA1102}</Project>
+      <Name>PhotonVoice.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

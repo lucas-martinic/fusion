@@ -1166,6 +1166,38 @@
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="MicAmplifierEditor.Editor.csproj">
+      <Project>{97926E18-BDBE-E8DE-D4CB-2C19252077E4}</Project>
+      <Name>MicAmplifierEditor.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.API.csproj">
+      <Project>{FBF946A4-ED25-6912-E66D-B1E86B19B96C}</Project>
+      <Name>PhotonVoice.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Utilities.Editor.csproj">
+      <Project>{C004586C-BEC4-BCEA-B4EA-1C105FE4175E}</Project>
+      <Name>PhotonVoice.Utilities.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.Editor.csproj">
+      <Project>{D0105C0A-0149-ADA8-2ACC-1650C5AC2700}</Project>
+      <Name>PhotonVoice.Fusion.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonRealtime.csproj">
+      <Project>{68FDC807-7EF1-191B-19BF-8FB0818865B9}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.csproj">
+      <Project>{1CFC0DB2-7C86-83A6-B929-A71D8D1C3A07}</Project>
+      <Name>PhotonVoice.Fusion</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.csproj">
+      <Project>{B2C7C1C1-B50D-61FF-8136-842C6B005B81}</Project>
+      <Name>PhotonVoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Editor.csproj">
+      <Project>{1A761EF3-3E6E-B0AA-3522-EF21E5AA1102}</Project>
+      <Name>PhotonVoice.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
