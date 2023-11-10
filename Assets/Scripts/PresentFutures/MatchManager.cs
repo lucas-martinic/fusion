@@ -1,4 +1,5 @@
 using Fusion;
+using Fusion.XR.Host;
 using System;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class MatchManager : NetworkBehaviour
     [SerializeField] private MatchState matchState = MatchState.Waiting;
 
     [SerializeField] GameObject xrOrigin;
+    [SerializeField] ConnectionManager connectionManager;
 
     [SerializeField] Transform[] spawnPositions;
     [SerializeField] Transform[] ringPositions;
@@ -45,6 +47,10 @@ public class MatchManager : NetworkBehaviour
     int networkedScore2 { get; set; }
     [Networked(OnChanged = nameof(NetworkMatchStateChanged))]
     int networkedMatchState { get; set; }
+    [Networked(OnChanged = nameof(NetworkPlayer1RoundsChanged))]
+    int networkPlayer1RoundsWon { get; set; }
+    [Networked(OnChanged = nameof(NetworkPlayer2RoundsChanged))]
+    int networkPlayer2RoundsWon { get; set; }
 
     [Header("RingBounds")]
     //Ring Bounds
@@ -193,7 +199,7 @@ public class MatchManager : NetworkBehaviour
         RPC_LostRound(Runner.LocalPlayer.PlayerId);
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_WonRound(int player)
     {
         if (player == 0)
@@ -205,7 +211,7 @@ public class MatchManager : NetworkBehaviour
 
         }
     }
-    [Rpc(RpcSources.All, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_LostRound(int player)
     {
         if (player == 0)
@@ -216,6 +222,18 @@ public class MatchManager : NetworkBehaviour
         {
 
         }
+    }
+
+    //Enable/disable voice chat
+    public void VoiceEnabled(bool enabled)
+    {
+        connectionManager.recorder.TransmitEnabled = enabled;
+        RPC_Mute(enabled);
+    }
+    [Rpc(RpcSources.All, RpcTargets.Proxies)]
+    public void RPC_Mute(bool enabled)
+    {
+        connectionManager.speaker.enabled = enabled;
     }
 
     private void MoveToSpawnPos()
@@ -249,5 +267,13 @@ public class MatchManager : NetworkBehaviour
     {
         changed.Behaviour.matchState = (MatchState)changed.Behaviour.networkedMatchState;
         changed.Behaviour.stateText.text = ((MatchState)changed.Behaviour.networkedMatchState).ToString();
+    }
+    private static void NetworkPlayer1RoundsChanged(Changed<MatchManager> changed)
+    {
+
+    }
+    private static void NetworkPlayer2RoundsChanged(Changed<MatchManager> changed)
+    {
+
     }
 }

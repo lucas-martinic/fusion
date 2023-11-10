@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using BNG;
+using Photon.Voice.Unity;
+
 namespace Fusion.XR.Host
 {
     /**
@@ -32,6 +34,8 @@ namespace Fusion.XR.Host
         [Header("Local user spawner")]
         public NetworkObject userPrefab;
         public NetworkObject voiceSetup;
+        public Recorder recorder;
+        public Speaker speaker;
 
         [Header("Event")]
         public UnityEvent onWillConnect = new UnityEvent();
@@ -93,6 +97,8 @@ namespace Fusion.XR.Host
                 var networkPlayerObject = runner.Spawn(userPrefab);
                 var obj = runner.Spawn(voiceSetup, Player.Instance.head.position, Player.Instance.head.rotation, runner.LocalPlayer);
                 obj.transform.SetParent(Player.Instance.head.transform);
+                recorder = obj.GetComponent<Recorder>();
+                speaker = obj.GetComponent<Speaker>();
             }
         }
 
