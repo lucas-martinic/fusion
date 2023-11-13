@@ -3569,6 +3569,7 @@ MonoBehaviour:
   - {fileID: 1671599541}
   matchTimer: {fileID: 42240703}
   matchFinishTextUI: {fileID: 530308926}
+  moveProvider: {fileID: 100444427}
 --- !u!114 &883924777
 MonoBehaviour:
   m_ObjectHideFlags: 0

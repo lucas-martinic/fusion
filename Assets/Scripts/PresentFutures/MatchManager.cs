@@ -3,6 +3,7 @@ using Fusion.XR.Host;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 //Manages the match logic
 public class MatchManager : NetworkBehaviour
@@ -71,10 +72,13 @@ public class MatchManager : NetworkBehaviour
     [SerializeField] private MatchTimer matchTimer;
     [SerializeField] GameObject matchFinishTextUI;
 
+    [SerializeField] ActionBasedContinuousMoveProvider moveProvider;
+
     private void Start()
     {
         time = roundTime;
         inputAction.action.performed += ToggleVoiceChat;
+        moveProvider.moveSpeed = 0;
     }
 
     public void StartMatch()
@@ -94,6 +98,7 @@ public class MatchManager : NetworkBehaviour
     [ContextMenu("StartRound")]
     private void StartRound()
     {
+        moveProvider.moveSpeed = 1;
         switch (matchState)
         {
             case MatchState.Waiting:
@@ -127,6 +132,7 @@ public class MatchManager : NetworkBehaviour
     [ContextMenu("EndRound")]
     private void EndRound()
     {
+        moveProvider.moveSpeed = 0;
         switch (matchState)
         {
             case MatchState.Round1:
