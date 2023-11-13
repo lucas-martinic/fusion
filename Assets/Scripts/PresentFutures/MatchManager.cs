@@ -69,11 +69,20 @@ public class MatchManager : NetworkBehaviour
     [SerializeField] private GameObject[] roundsUI;
 
     [SerializeField] private MatchTimer matchTimer;
+    [SerializeField] GameObject matchFinishTextUI;
 
     private void Start()
     {
         time = roundTime;
         inputAction.action.performed += ToggleVoiceChat;
+    }
+
+    public void StartMatch()
+    {
+        if (HasStateAuthority)
+        {
+            matchTimer.StartTimer(10, () => StartRound());
+        }
     }
 
     private void ToggleVoiceChat(InputAction.CallbackContext obj)
@@ -144,14 +153,22 @@ public class MatchManager : NetworkBehaviour
         networkedMatchState = matchState;
     }
 
-    public void PlayerJoined()
+    public void PlayerJoined(PlayerRef player)
     {
         playersOnline++;
+        if(playersOnline == 2)
+        {
+            StartMatch();
+        }
     }
 
-    public void PlayerLeft()
+    //If the other player leaves, local player wins
+    public void PlayerLeft(PlayerRef player)
     {
-        playersOnline--;
+        if(player != Runner.LocalPlayer)
+        {
+            EndMatch(Runner.LocalPlayer);
+        }
     }
 
     public void ResetGameStats()
@@ -196,8 +213,8 @@ public class MatchManager : NetworkBehaviour
                 else
                 {
                     time = 0;
-                    EndRound();
                     DetermineRoundWinner();
+                    EndRound();
                 }
             }
         }
@@ -249,6 +266,8 @@ public class MatchManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_WonRound(int winner)
     {
+        Debug.Log("Match winner: " + winner.ToString());
+
         switch (currentRound)
         {
             case 0:
@@ -269,12 +288,60 @@ public class MatchManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_Tie()
     {
-
+        Debug.Log("Tie");
+        switch (currentRound)
+        {
+            case 0:
+                round1Winner = -1;
+                break;
+            case 1:
+                round2Winner = -1;
+                break;
+            case 2:
+                round3Winner = -1;
+                break;
+            default:
+                break;
+        }
+        roundsUI[currentRound].transform.GetChild(2).gameObject.SetActive(true);
     }
 
     private void EndMatch()
     {
-        
+        //Determine winner by number of rounds won
+        int winner;
+        int redPlayerPoints = round1Winner == 0 ? 1 : 0 + round2Winner == 0 ? 1 : 0 + round3Winner == 0 ? 1 : 0;
+        int bluePlayerPoints = round1Winner == 1 ? 1 : 0 + round2Winner == 1 ? 1 : 0 + round3Winner == 1 ? 1 : 0;
+        Debug.Log("RedPlayerPoints: " + redPlayerPoints.ToString());
+        Debug.Log("BluePlayerPoints: " + bluePlayerPoints.ToString());
+        if (redPlayerPoints > bluePlayerPoints) winner = 0;
+        else if (bluePlayerPoints > redPlayerPoints) winner = 1;
+        //Tie
+        else winner = 2;
+        matchFinishTextUI.transform.GetChild(winner).gameObject.SetActive(true);
+        PlayerWins(winner);
+
+    }
+    //End match with a winner
+    private void EndMatch(int winner)
+    {
+        matchFinishTextUI.transform.GetChild(winner).gameObject.SetActive(true);
+        PlayerWins(winner);
+    }
+
+    private void PlayerWins(int winner)
+    {
+        switch (winner)
+        {
+            case 0:
+                Debug.Log("Red player wins");
+                break;
+            case 1:
+                Debug.Log("Blue player wins");
+                break;
+            default:
+                break;
+        }
     }
 
     //Enable/disable voice chat

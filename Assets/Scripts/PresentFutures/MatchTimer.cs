@@ -19,6 +19,7 @@ public class MatchTimer : MonoBehaviour
             yield return new WaitForSeconds(1);
             n--;
         }
+        timerText.text = "";
         onFinished?.Invoke();
     }
 }

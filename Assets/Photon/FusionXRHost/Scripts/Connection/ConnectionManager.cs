@@ -38,6 +38,8 @@ namespace Fusion.XR.Host
         [HideInInspector] public Recorder recorder;
         [HideInInspector] public Speaker speaker;
 
+        [SerializeReference] private MatchManager matchManager;
+
         [Header("Event")]
         public UnityEvent onWillConnect = new UnityEvent();
 
@@ -78,6 +80,7 @@ namespace Fusion.XR.Host
             {
                 GameMode = mode,
                 SessionName = roomName,
+                PlayerCount = 2,
                 Scene = SceneManager.GetActiveScene().buildIndex,
                 SceneManager = sceneManager
             };
@@ -101,6 +104,8 @@ namespace Fusion.XR.Host
                 recorder = obj.GetComponent<Recorder>();
                 speaker = obj.GetComponent<Speaker>();
             }
+
+            matchManager.PlayerJoined(player);
         }
 
         #endregion
@@ -120,7 +125,10 @@ namespace Fusion.XR.Host
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
         public void OnSceneLoadDone(NetworkRunner runner) { }
         public void OnSceneLoadStart(NetworkRunner runner) { }
-        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
+        public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) 
+        {
+            matchManager.PlayerLeft(player);
+        }
         #endregion
     }
 
