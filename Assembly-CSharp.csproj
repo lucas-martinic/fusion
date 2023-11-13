@@ -280,6 +280,7 @@
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Connection\ConnectionManager.cs" />
     <Compile Include="Assets\Photon\FusionXRHost\Scripts\Desktop\RigSelection.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Core\GrabbablesInTrigger.cs" />
+    <Compile Include="Assets\Scripts\PresentFutures\MatchTimer.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Weapons\AmmoDispenser.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Weapons\Bullet.cs" />
     <Compile Include="Assets\BNG Framework\Scripts\Components\LineToTransform.cs" />

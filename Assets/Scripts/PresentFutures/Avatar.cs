@@ -125,7 +125,7 @@ public class Avatar : NetworkBehaviour
     private void AddPoints(int points)
     {
         if (matchManager.matchFinished) return;
-        matchManager.AddPoints(points, Runner.LocalPlayer.PlayerId);
+        matchManager.AddPoints(points, Runner.LocalPlayer);
     }
 
     private void Update()

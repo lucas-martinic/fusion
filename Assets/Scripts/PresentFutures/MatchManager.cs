@@ -50,16 +50,25 @@ public class MatchManager : NetworkBehaviour
     int networkedScore2 { get; set; }
     [Networked(OnChanged = nameof(NetworkMatchStateChanged))]
     int networkedMatchState { get; set; }
-    [Networked(OnChanged = nameof(NetworkPlayer1RoundsChanged))]
-    int networkPlayer1RoundsWon { get; set; }
-    [Networked(OnChanged = nameof(NetworkPlayer2RoundsChanged))]
-    int networkPlayer2RoundsWon { get; set; }
+    [Networked(OnChanged = nameof(NetworkRound1WinnerChanged))]
+    int round1Winner { get; set; }
+    [Networked(OnChanged = nameof(NetworkRound2WinnerChanged))]
+    int round2Winner { get; set; }
+    [Networked(OnChanged = nameof(NetworkRound3WinnerChanged))]
+    int round3Winner { get; set; }
+    [Networked(OnChanged = nameof(CurrentRoundChanged))]
+    int networkedCurrentRound { get; set; }
 
     [Header("RingBounds")]
     //Ring Bounds
     [SerializeField] private Collider ringCollider;
     [SerializeField] private float maxTimeOutOfRing = 3;
     private float playerOutOfRingCounter = 0;
+
+    [SerializeField] private int currentRound = 0;
+    [SerializeField] private GameObject[] roundsUI;
+
+    [SerializeField] private MatchTimer matchTimer;
 
     private void Start()
     {
@@ -82,16 +91,24 @@ public class MatchManager : NetworkBehaviour
                 networkedMatchState = (int)MatchState.Round1;
                 MoveToMatchPosition();
                 networkedTime = roundTime;
+                networkedScore1 = 0;
+                networkedScore2 = 0;
                 break;
             case MatchState.Break1:
                 networkedMatchState = (int)MatchState.Round2;
                 MoveToMatchPosition();
                 networkedTime = roundTime;
+                networkedScore1 = 0;
+                networkedScore2 = 0;
+                networkedCurrentRound++;
                 break;
             case MatchState.Break2:
                 networkedMatchState = (int)MatchState.Round3;
                 MoveToMatchPosition();
                 networkedTime = roundTime;
+                networkedScore1 = 0;
+                networkedScore2 = 0;
+                networkedCurrentRound++;
                 break;
             default:
                 break;
@@ -106,13 +123,16 @@ public class MatchManager : NetworkBehaviour
             case MatchState.Round1:
                 networkedMatchState = (int)MatchState.Break1;
                 MoveToCornerPosition();
+                matchTimer.StartTimer(10, () => StartRound());
                 break;
             case MatchState.Round2:
                 networkedMatchState = (int)MatchState.Break2;
                 MoveToCornerPosition();
+                matchTimer.StartTimer(10, () => StartRound());
                 break;
             case MatchState.Round3:
                 networkedMatchState = (int)MatchState.Finished;
+                EndMatch();
                 break;
             default:
                 break;
@@ -134,14 +154,13 @@ public class MatchManager : NetworkBehaviour
         playersOnline--;
     }
 
-    public void RestartMatch()
+    public void ResetGameStats()
     {
         if (HasStateAuthority)
         {
             networkedTime = roundTime;
             networkedScore1 = 0;
             networkedScore2 = 0;
-            networkedMatchState = 6;
         }
     }
 
@@ -169,7 +188,7 @@ public class MatchManager : NetworkBehaviour
         if (HasStateAuthority)
         {
             if ((int)matchState == 1 || (int)matchState == 3 || (int)matchState == 5)
-            {                
+            {
                 if(time > 0)
                 {
                     networkedTime = time -= Time.deltaTime;
@@ -178,6 +197,7 @@ public class MatchManager : NetworkBehaviour
                 {
                     time = 0;
                     EndRound();
+                    DetermineRoundWinner();
                 }
             }
         }
@@ -204,34 +224,57 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    private void DetermineRoundWinner()
+    {
+        if(score1 > score2)
+        {
+            RPC_WonRound(0);
+        }
+        else if (score2 > score1) 
+        {
+            RPC_WonRound(1);
+        }
+        else
+        {
+            RPC_Tie();
+        }
+    }
+
     private void Disqualified()
     {
-        RPC_LostRound((int)Runner.LocalPlayer);
+        //Other player wins
+        RPC_WonRound((int)Runner.LocalPlayer == 0 ? 1:0);
     }
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_WonRound(int player)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_WonRound(int winner)
     {
-        if (player == 0)
+        switch (currentRound)
         {
-
+            case 0:
+                round1Winner = winner;
+                break;
+            case 1:
+                round2Winner = winner;
+                break;
+            case 2:
+                round3Winner = winner;
+                break;
+            default:
+                break;
         }
-        else if (player == 1)
-        {
-
-        }
+        roundsUI[currentRound].transform.GetChild(winner).gameObject.SetActive(true);
     }
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_LostRound(int player)
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_Tie()
     {
-        if (player == 0)
-        {
 
-        }
-        else if (player == 1)
-        {
+    }
 
-        }
+    private void EndMatch()
+    {
+        
     }
 
     //Enable/disable voice chat
@@ -278,12 +321,33 @@ public class MatchManager : NetworkBehaviour
         changed.Behaviour.matchState = (MatchState)changed.Behaviour.networkedMatchState;
         changed.Behaviour.stateText.text = ((MatchState)changed.Behaviour.networkedMatchState).ToString();
     }
-    private static void NetworkPlayer1RoundsChanged(Changed<MatchManager> changed)
+    private static void NetworkRound1WinnerChanged(Changed<MatchManager> changed)
     {
 
     }
-    private static void NetworkPlayer2RoundsChanged(Changed<MatchManager> changed)
+    private static void NetworkRound2WinnerChanged(Changed<MatchManager> changed)
     {
 
     }
+    private static void NetworkRound3WinnerChanged(Changed<MatchManager> changed)
+    {
+
+    }
+    private static void CurrentRoundChanged(Changed<MatchManager> changed)
+    {
+        changed.Behaviour.currentRound = changed.Behaviour.networkedCurrentRound;
+    }
+
+    #region Testing
+    [ContextMenu("RedWinRound")]
+    private void RedWinRound()
+    {
+        RPC_WonRound(0);
+    }
+    [ContextMenu("RedLostRound")]
+    private void RedLostRound()
+    {
+        RPC_WonRound(1);
+    }
+    #endregion
 }
