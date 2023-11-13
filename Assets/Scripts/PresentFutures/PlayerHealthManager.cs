@@ -16,10 +16,12 @@ public class PlayerHealthManager : MonoBehaviour
     private NetworkRunner runner;
     private NetworkObject koAvatar;
     [SerializeField] Transform rootBone;
+    private MatchManager matchManager;
 
     private void Start()
     {
         runner = FindObjectOfType<NetworkRunner>();
+        matchManager = FindAnyObjectByType<MatchManager>();
     }
 
     private void Update()
@@ -112,6 +114,7 @@ public class PlayerHealthManager : MonoBehaviour
             var knockoutAvatarComponent = koAvatar.gameObject.GetComponent<KnockoutAvatar>();
             knockoutAvatarComponent.MatchBodyPosition(rootBone.GetComponentsInChildren<Transform>());
         }
+        matchManager.PlayerKO();
         mainRenderer.enabled = false;
         StartCoroutine(RespawnTimer());
     }
