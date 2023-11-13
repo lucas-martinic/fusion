@@ -26,6 +26,8 @@ public class Avatar : NetworkBehaviour
 
     [SerializeField] bool dontDestroyOwnBodyColliders;
 
+    [SerializeField] SkinnedMeshRenderer meshRenderer;
+
     private void Start()
     {
         matchManager = FindObjectOfType<MatchManager>();
@@ -50,6 +52,8 @@ public class Avatar : NetworkBehaviour
                     Destroy(item);
                 }
             }
+
+            RPC_SetColor();
         }
         else
         {
@@ -93,6 +97,19 @@ public class Avatar : NetworkBehaviour
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
         PlayHitSound(colliderIndex);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_SetColor()
+    {
+        if(Runner.LocalPlayer == 0)
+        {
+            meshRenderer.material.color = Color.red;
+        }
+        else if (Runner.LocalPlayer == 1)
+        {
+            meshRenderer.material.color = Color.blue;
+        }
     }
 
     public void PlayHitSound(int colliderIndex)

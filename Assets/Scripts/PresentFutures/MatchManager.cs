@@ -206,7 +206,7 @@ public class MatchManager : NetworkBehaviour
 
     private void Disqualified()
     {
-        RPC_LostRound(Runner.LocalPlayer.PlayerId);
+        RPC_LostRound((int)Runner.LocalPlayer);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -248,11 +248,11 @@ public class MatchManager : NetworkBehaviour
 
     private void MoveToCornerPosition()
     {
-        xrOrigin.transform.position = spawnPositions[Runner.LocalPlayer.PlayerId].position;
+        xrOrigin.transform.position = spawnPositions[Runner.LocalPlayer].position;
     }
     private void MoveToMatchPosition()
     {
-        xrOrigin.transform.position = ringPositions[Runner.LocalPlayer.PlayerId].position;
+        xrOrigin.transform.position = ringPositions[Runner.LocalPlayer].position;
     }
 
     //Update timer in the network

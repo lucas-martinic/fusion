@@ -849,6 +849,10 @@
       <Project>{A85B474D-9E93-EF06-29BA-0912C72CB48D}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.Hands</Name>
     </ProjectReference>
+    <ProjectReference Include="MicAmplifierEditor.Editor.csproj">
+      <Project>{97926E18-BDBE-E8DE-D4CB-2C19252077E4}</Project>
+      <Name>MicAmplifierEditor.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{7BD0CA92-A90F-DCC7-FDB4-241F6355A357}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -941,6 +945,10 @@
       <Project>{C70B35F7-A5B2-4794-37E9-A92BD28B1A8C}</Project>
       <Name>Unity.Mathematics.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Utilities.Editor.csproj">
+      <Project>{C004586C-BEC4-BCEA-B4EA-1C105FE4175E}</Project>
+      <Name>PhotonVoice.Utilities.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.XR.Oculus.Editor.csproj">
       <Project>{E614E993-ACCF-6D09-4CD3-858F3A8E76A7}</Project>
       <Name>Unity.XR.Oculus.Editor</Name>
@@ -952,6 +960,10 @@
     <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
       <Project>{CB3C3492-E85D-2B63-A960-4D3933BB492F}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.Editor.csproj">
+      <Project>{D0105C0A-0149-ADA8-2ACC-1650C5AC2700}</Project>
+      <Name>PhotonVoice.Fusion.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
       <Project>{601FBD1D-CD33-A16E-252E-411BD0AA7312}</Project>
@@ -980,6 +992,10 @@
     <ProjectReference Include="Unity.XR.Management.Editor.csproj">
       <Project>{9DCB1B83-307D-CE08-3E6A-8BD49F3FD868}</Project>
       <Name>Unity.XR.Management.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.API.csproj">
+      <Project>{FBF946A4-ED25-6912-E66D-B1E86B19B96C}</Project>
+      <Name>PhotonVoice.API</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{2992CF05-EB43-B30F-87C5-D717A5C5341B}</Project>
@@ -1013,9 +1029,17 @@
       <Project>{58640E13-B11C-4013-BDC1-C1B5D65BF4B7}</Project>
       <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="PhotonRealtime.csproj">
+      <Project>{68FDC807-7EF1-191B-19BF-8FB0818865B9}</Project>
+      <Name>PhotonRealtime</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.XR.OpenXR.Features.OculusQuestSupport.csproj">
       <Project>{176441EE-6E19-67CD-8929-09E436B1D5B1}</Project>
       <Name>Unity.XR.OpenXR.Features.OculusQuestSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Fusion.csproj">
+      <Project>{1CFC0DB2-7C86-83A6-B929-A71D8D1C3A07}</Project>
+      <Name>PhotonVoice.Fusion</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.csproj">
       <Project>{A665B577-2388-2141-63A7-999B6580ABD5}</Project>
@@ -1024,6 +1048,14 @@
     <ProjectReference Include="Unity.Mathematics.csproj">
       <Project>{DD964E93-304B-ADF6-21FE-DDC94B57E817}</Project>
       <Name>Unity.Mathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.csproj">
+      <Project>{B2C7C1C1-B50D-61FF-8136-842C6B005B81}</Project>
+      <Name>PhotonVoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="PhotonVoice.Editor.csproj">
+      <Project>{1A761EF3-3E6E-B0AA-3522-EF21E5AA1102}</Project>
+      <Name>PhotonVoice.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.csproj">
       <Project>{0A9EC814-A679-9638-FB75-E8685E4ECD6C}</Project>
@@ -1100,38 +1132,6 @@
     <ProjectReference Include="Unity.SysrootPackage.Editor.csproj">
       <Project>{4BD52EF7-20B0-A5F8-DD5F-6FA5F54507D7}</Project>
       <Name>Unity.SysrootPackage.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="MicAmplifierEditor.Editor.csproj">
-      <Project>{97926E18-BDBE-E8DE-D4CB-2C19252077E4}</Project>
-      <Name>MicAmplifierEditor.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.API.csproj">
-      <Project>{FBF946A4-ED25-6912-E66D-B1E86B19B96C}</Project>
-      <Name>PhotonVoice.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.Utilities.Editor.csproj">
-      <Project>{C004586C-BEC4-BCEA-B4EA-1C105FE4175E}</Project>
-      <Name>PhotonVoice.Utilities.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.Fusion.Editor.csproj">
-      <Project>{D0105C0A-0149-ADA8-2ACC-1650C5AC2700}</Project>
-      <Name>PhotonVoice.Fusion.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{68FDC807-7EF1-191B-19BF-8FB0818865B9}</Project>
-      <Name>PhotonRealtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.Fusion.csproj">
-      <Project>{1CFC0DB2-7C86-83A6-B929-A71D8D1C3A07}</Project>
-      <Name>PhotonVoice.Fusion</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.csproj">
-      <Project>{B2C7C1C1-B50D-61FF-8136-842C6B005B81}</Project>
-      <Name>PhotonVoice</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonVoice.Editor.csproj">
-      <Project>{1A761EF3-3E6E-B0AA-3522-EF21E5AA1102}</Project>
-      <Name>PhotonVoice.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

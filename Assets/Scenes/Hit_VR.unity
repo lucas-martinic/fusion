@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 335666386}
   - component: {fileID: 335666385}
   m_Layer: 5
-  m_Name: Score2
+  m_Name: Damage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1771,7 +1771,7 @@ GameObject:
   - component: {fileID: 700095690}
   - component: {fileID: 700095689}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4332,7 +4332,7 @@ GameObject:
   - component: {fileID: 1792492811}
   - component: {fileID: 1792492810}
   m_Layer: 5
-  m_Name: Score1
+  m_Name: Damage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

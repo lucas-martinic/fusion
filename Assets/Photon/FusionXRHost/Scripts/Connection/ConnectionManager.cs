@@ -34,6 +34,7 @@ namespace Fusion.XR.Host
         [Header("Local user spawner")]
         public NetworkObject userPrefab;
         public NetworkObject voiceSetup;
+
         [HideInInspector] public Recorder recorder;
         [HideInInspector] public Speaker speaker;
 
@@ -91,8 +92,8 @@ namespace Fusion.XR.Host
             if (player == runner.LocalPlayer)
             {
                 Player.Instance.transform.SetLocalPositionAndRotation
-                    (spawnPos[runner.LocalPlayer.PlayerId].position,
-                    spawnPos[runner.LocalPlayer.PlayerId].rotation);
+                    (spawnPos[runner.LocalPlayer].position,
+                    spawnPos[runner.LocalPlayer].rotation);
 
                 var networkPlayerObject = runner.Spawn(userPrefab);
                 var obj = runner.Spawn(voiceSetup, Player.Instance.head.position, Player.Instance.head.rotation, runner.LocalPlayer);

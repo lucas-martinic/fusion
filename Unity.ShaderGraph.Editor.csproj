@@ -344,8 +344,8 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Math\Round\SignNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Drawing\Views\MaterialNodeView.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Generation\Data\KeywordEntry.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Graphs\ShaderGraphRequirements.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Interfaces\IMayRequireMeshUV.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Graphs\ShaderGraphRequirements.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Generation\Targets\BuiltIn\Editor\ShaderGraph\BuiltInStructFields.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Math\Advanced\ReciprocalSquareRootNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Input\Geometry\ViewDirectionNode.cs" />

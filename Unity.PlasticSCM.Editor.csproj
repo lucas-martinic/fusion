@@ -220,8 +220,8 @@
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\CloudProjectDownloader\CloudProjectDownloader.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\UI\Progress\DrawProgressForDialogs.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\UI\UnityEvents.cs" />
-    <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\Views\IncomingChanges\Developer\DirectoryConflicts\DrawDirectoryResolutionPanel.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\Developer\CheckinProgress.cs" />
+    <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\Views\IncomingChanges\Developer\DirectoryConflicts\DrawDirectoryResolutionPanel.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\Configuration\ToolConfig.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\Developer\IncomingChangesNotifier.cs" />
     <Compile Include="Library\PackageCache\com.unity.collab-proxy@2.0.3\Editor\PlasticSCM\WebApi\IsCollabProjectMigratedResponse.cs" />
