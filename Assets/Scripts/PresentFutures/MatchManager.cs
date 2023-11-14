@@ -466,10 +466,10 @@ public class MatchManager : NetworkBehaviour
     public void SphereFadeOutIn(Action onFadedOut)
     {
         fadeSphere.enabled = true;
-        fadeSphere.material.DOFade(1, 0.25f).OnComplete(() =>
+        fadeSphere.material.DOFade(1, 0.5f).OnComplete(() =>
         {
             onFadedOut?.Invoke();
-            SphereFadein(0.25f);
+            SphereFadein(0.5f);
         });
     }
 
