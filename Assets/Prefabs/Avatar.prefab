@@ -4094,10 +4094,8 @@ MonoBehaviour:
   nonCollisionLayer: 4
   hitAudioSource: {fileID: 4237133530283186061}
   healthManager: {fileID: 8091406231402886136}
-  dontDestroyOwnBodyColliders: 1
+  dontDestroyOwnBodyColliders: 0
   meshRenderer: {fileID: 4703076576955632764}
-  redMaterial: {fileID: 2100000, guid: fbf6fd4dfaf4d574ab86c42e1bd5c945, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 4382fff59650b8541b8913ecfa8356f0, type: 2}
 --- !u!114 &8091406231402886136
 MonoBehaviour:
   m_ObjectHideFlags: 0

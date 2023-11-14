@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Fusion;
 using Fusion.XR.Host;
 using System;
@@ -50,14 +51,14 @@ public class MatchManager : NetworkBehaviour
     [Networked(OnChanged = nameof(NetworkScoreBlueChanged))]
     int NetworkedScoreBlue { get; set; }
     [Networked(OnChanged = nameof(KOPlayerRedChanged))]
-    int KOPlayerRed { get; set; }
+    int NetworkedKOPlayerRed { get; set; }
     [Networked(OnChanged = nameof(KOPlayerBlueChanged))]
-    int KOPlayerBlue { get; set; }
+    int NetworkedKOPlayerBlue { get; set; }
     [Networked(OnChanged = nameof(NetworkMatchStateChanged))]
     int NetworkedMatchState { get; set; }
-    int Round1Winner { get; set; }
-    int Round2Winner { get; set; }
-    int Round3Winner { get; set; }
+    int NetworkedRound1Winner { get; set; }
+    int NetworkedRound2Winner { get; set; }
+    int NetworkedRound3Winner { get; set; }
     [Networked(OnChanged = nameof(CurrentRoundChanged))]
     int NetworkedCurrentRound { get; set; }
 
@@ -75,6 +76,8 @@ public class MatchManager : NetworkBehaviour
 
     [SerializeField] ActionBasedContinuousMoveProvider moveProvider;
 
+    [SerializeField] MeshRenderer fadeSphere;
+
     private void Start()
     {
         time = roundTime;
@@ -82,11 +85,14 @@ public class MatchManager : NetworkBehaviour
         moveProvider.moveSpeed = 0;
     }
 
+    [ContextMenu("StartMatch")]
     public void StartMatch()
     {
+        Debug.Log("Starting Match");
         if (HasStateAuthority)
         {
-            matchTimer.StartTimer(10, () => StartRound());
+            matchTimer.RPC_StartTimer(10);
+            matchTimer.OnFinished += StartRound;
         }
     }
 
@@ -99,23 +105,23 @@ public class MatchManager : NetworkBehaviour
     [ContextMenu("StartRound")]
     private void StartRound()
     {
-        moveProvider.moveSpeed = 1;
+        RPC_SetMovement(1);
         switch (matchState)
         {
             case MatchState.Waiting:
                 NetworkedMatchState = (int)MatchState.Round1;
-                MoveToMatchPosition();
+                RPC_MoveToMatchPosition();
                 ResetRoundStats();
                 break;
             case MatchState.Break1:
                 NetworkedMatchState = (int)MatchState.Round2;
-                MoveToMatchPosition();
+                RPC_MoveToMatchPosition();
                 ResetRoundStats();
                 NetworkedCurrentRound++;
                 break;
             case MatchState.Break2:
                 NetworkedMatchState = (int)MatchState.Round3;
-                MoveToMatchPosition();
+                RPC_MoveToMatchPosition();
                 ResetRoundStats();
                 NetworkedCurrentRound++;
                 break;
@@ -129,25 +135,25 @@ public class MatchManager : NetworkBehaviour
         NetworkedTime = roundTime;
         NetworkedScoreRed = 0;
         NetworkedScoreBlue = 0;
-        KOPlayerBlue = 0;
-        KOPlayerRed = 0;
+        NetworkedKOPlayerBlue = 0;
+        NetworkedKOPlayerRed = 0;
     }
 
     [ContextMenu("EndRound")]
     private void EndRound()
     {
-        moveProvider.moveSpeed = 0;
+        RPC_SetMovement(0);
         switch (matchState)
         {
             case MatchState.Round1:
                 NetworkedMatchState = (int)MatchState.Break1;
-                MoveToCornerPosition();
-                matchTimer.StartTimer(10, () => StartRound());
+                RPC_MoveToCornerPosition();
+                matchTimer.RPC_StartTimer(10);
                 break;
             case MatchState.Round2:
                 NetworkedMatchState = (int)MatchState.Break2;
-                MoveToCornerPosition();
-                matchTimer.StartTimer(10, () => StartRound());
+                RPC_MoveToCornerPosition();
+                matchTimer.RPC_StartTimer(10);
                 break;
             case MatchState.Round3:
                 NetworkedMatchState = (int)MatchState.Finished;
@@ -281,13 +287,13 @@ public class MatchManager : NetworkBehaviour
         switch (currentRound)
         {
             case 0:
-                Round1Winner = winner;
+                NetworkedRound1Winner = winner;
                 break;
             case 1:
-                Round2Winner = winner;
+                NetworkedRound2Winner = winner;
                 break;
             case 2:
-                Round3Winner = winner;
+                NetworkedRound3Winner = winner;
                 break;
             default:
                 break;
@@ -302,13 +308,13 @@ public class MatchManager : NetworkBehaviour
         switch (currentRound)
         {
             case 0:
-                Round1Winner = -1;
+                NetworkedRound1Winner = -1;
                 break;
             case 1:
-                Round2Winner = -1;
+                NetworkedRound2Winner = -1;
                 break;
             case 2:
-                Round3Winner = -1;
+                NetworkedRound3Winner = -1;
                 break;
             default:
                 break;
@@ -316,12 +322,18 @@ public class MatchManager : NetworkBehaviour
         roundsUI[currentRound].transform.GetChild(2).gameObject.SetActive(true);
     }
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_SetMovement(float f)
+    {
+        moveProvider.moveSpeed = f;
+    }
+
     private void EndMatch()
     {
         //Determine winner by number of rounds won
         int winner;
-        int redPlayerPoints = Round1Winner == RedPlayer ? 1 : 0 + Round2Winner == RedPlayer ? 1 : 0 + Round3Winner == RedPlayer ? 1 : 0;
-        int bluePlayerPoints = Round1Winner == BluePlayer ? 1 : 0 + Round2Winner == BluePlayer ? 1 : 0 + Round3Winner == BluePlayer ? 1 : 0;
+        int redPlayerPoints = NetworkedRound1Winner == RedPlayer ? 1 : 0 + NetworkedRound2Winner == RedPlayer ? 1 : 0 + NetworkedRound3Winner == RedPlayer ? 1 : 0;
+        int bluePlayerPoints = NetworkedRound1Winner == BluePlayer ? 1 : 0 + NetworkedRound2Winner == BluePlayer ? 1 : 0 + NetworkedRound3Winner == BluePlayer ? 1 : 0;
         Debug.Log("RedPlayerPoints: " + redPlayerPoints.ToString());
         Debug.Log("BluePlayerPoints: " + bluePlayerPoints.ToString());
         if (redPlayerPoints > bluePlayerPoints) winner = RedPlayer;
@@ -366,13 +378,15 @@ public class MatchManager : NetworkBehaviour
         connectionManager.speaker.enabled = enabled;
     }
 
-    private void MoveToCornerPosition()
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_MoveToCornerPosition()
     {
-        xrOrigin.transform.position = spawnPositions[Runner.LocalPlayer].position;
+        SphereFadeOutIn(() => xrOrigin.transform.position = spawnPositions[Runner.LocalPlayer].position);
     }
-    private void MoveToMatchPosition()
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_MoveToMatchPosition()
     {
-        xrOrigin.transform.position = ringPositions[Runner.LocalPlayer].position;
+        SphereFadeOutIn(() => xrOrigin.transform.position = ringPositions[Runner.LocalPlayer].position);
     }
 
     //Update timer in the network
@@ -402,14 +416,14 @@ public class MatchManager : NetworkBehaviour
     }
     private static void KOPlayerRedChanged(Changed<MatchManager> changed)
     {
-        if(changed.Behaviour.KOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
+        if(changed.Behaviour.NetworkedKOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(BluePlayer);
         }
     }
     private static void KOPlayerBlueChanged(Changed<MatchManager> changed)
     {
-        if (changed.Behaviour.KOPlayerBlue == 3 && changed.Behaviour.HasStateAuthority)
+        if (changed.Behaviour.NetworkedKOPlayerBlue == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(RedPlayer);
         }
@@ -418,12 +432,31 @@ public class MatchManager : NetworkBehaviour
     {
         if(Runner.LocalPlayer == RedPlayer)
         {
-            KOPlayerRed++;
+            NetworkedKOPlayerRed++;
         }
         else if(Runner.LocalPlayer == BluePlayer)
         {
-            KOPlayerBlue++;
+            NetworkedKOPlayerBlue++;
         }
+    }
+
+    public void SphereFadein(float time)
+    {
+        fadeSphere.material.DOFade(0, time).OnComplete(() => fadeSphere.enabled = false);
+    }
+    public void SphereFadeout(float time)
+    {
+        fadeSphere.enabled = true;
+        fadeSphere.material.DOFade(1, time);
+    }
+    public void SphereFadeOutIn(Action onFadedOut)
+    {
+        fadeSphere.enabled = true;
+        fadeSphere.material.DOFade(1, 0.25f).OnComplete(() =>
+        {
+            onFadedOut?.Invoke();
+            SphereFadein(0.25f);
+        });
     }
 
     #region Testing

@@ -32,6 +32,8 @@ public class Avatar : NetworkBehaviour
     {
         matchManager = FindObjectOfType<MatchManager>();
 
+        SetColor();
+
         if (HasStateAuthority)
         {
             transform.SetPositionAndRotation(Player.Instance.transform.position, Player.Instance.transform.rotation);
@@ -45,6 +47,7 @@ public class Avatar : NetworkBehaviour
             //We destroy our own BodyColliders if its our own avatar (we don't wanna hit ourselves)
             var children = avatarParent.GetComponentsInChildren<BodyCollider>(includeInactive: true);
 
+            //For local testing
             if (!dontDestroyOwnBodyColliders)
             {
                 foreach (var item in children)
@@ -52,8 +55,6 @@ public class Avatar : NetworkBehaviour
                     Destroy(item);
                 }
             }
-
-            RPC_SetColor();
         }
         else
         {
@@ -75,6 +76,7 @@ public class Avatar : NetworkBehaviour
             {
                 //Local hit reaction
                 hitReaction.Hit(colliders[i], direction * hitForce, position);
+                PlayHitSound(i);
                 //Add one point, this can be used for different amounts in the future
                 if (receiveDamage)
                 {
@@ -99,16 +101,15 @@ public class Avatar : NetworkBehaviour
         PlayHitSound(colliderIndex);
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_SetColor()
+    public void SetColor()
     {
-        if(Runner.LocalPlayer == 0)
+        if (HasStateAuthority)
         {
-            meshRenderer.material.color = Color.red;
+            meshRenderer.material.color = Runner.LocalPlayer == 0 ? Color.red : Color.blue;
         }
-        else if (Runner.LocalPlayer == 1)
+        else
         {
-            meshRenderer.material.color = Color.blue;
+            meshRenderer.material.color = Runner.LocalPlayer == 1 ? Color.red : Color.blue;
         }
     }
 

@@ -97,7 +97,7 @@ namespace Fusion.XR.Host
                 Player.Instance.transform.SetLocalPositionAndRotation
                     (spawnPos[runner.LocalPlayer].position,
                     spawnPos[runner.LocalPlayer].rotation);
-
+                matchManager.SphereFadein(0.5f);
                 var networkPlayerObject = runner.Spawn(userPrefab);
                 var obj = runner.Spawn(voiceSetup, Player.Instance.head.position, Player.Instance.head.rotation, runner.LocalPlayer);
                 obj.transform.SetParent(Player.Instance.head.transform);

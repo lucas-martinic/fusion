@@ -1,17 +1,21 @@
+using Fusion;
 using System;
 using System.Collections;
 using UnityEngine;
 
-public class MatchTimer : MonoBehaviour
+public class MatchTimer : NetworkBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI timerText;
+    public event Action OnFinished;
 
-    public void StartTimer(int n, Action onFinished)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_StartTimer(int n)
     {
-        StartCoroutine(Co_Timer(n, onFinished));
+        Debug.Log("Starting match timer");
+        StartCoroutine(Co_Timer(n));
     }
 
-    IEnumerator Co_Timer(int n, Action onFinished)
+    IEnumerator Co_Timer(int n)
     {
         while(n >= 0)
         {
@@ -20,6 +24,6 @@ public class MatchTimer : MonoBehaviour
             n--;
         }
         timerText.text = "";
-        onFinished?.Invoke();
+        OnFinished?.Invoke();
     }
 }
