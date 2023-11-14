@@ -189,9 +189,12 @@ public class MatchManager : NetworkBehaviour
     //If the other player leaves, local player wins
     public void PlayerLeft(PlayerRef player)
     {
-        if(player != Runner.LocalPlayer)
+        if ((int)matchState < 6)
         {
-            RPC_EndMatch(Runner.LocalPlayer);
+            if(player != Runner.LocalPlayer)
+            {
+                RPC_EndMatch(Runner.LocalPlayer);
+            }
         }
     }
 
@@ -239,8 +242,8 @@ public class MatchManager : NetworkBehaviour
                 else
                 {
                     time = 0;
-                    DetermineRoundWinner();
-                    RPC_EndRound();
+                    DetermineRoundWinner();                    
+                    Invoke(nameof(RPC_EndRound), 2);
                 }
             }
         }
@@ -351,9 +354,7 @@ public class MatchManager : NetworkBehaviour
         else if (bluePlayerPoints > redPlayerPoints) winner = BluePlayer;
         //Tie
         else winner = 2;
-        matchFinishTextUI.transform.GetChild(winner).gameObject.SetActive(true);
-        PlayerWins(winner);
-
+        RPC_EndMatch(winner);
     }
     //End match with a winner
     [Rpc(RpcSources.All, RpcTargets.All)]

@@ -91,9 +91,9 @@ public class Avatar : NetworkBehaviour
                 if (receiveDamage)
                 {
                     //Calculate points/Health
-                    int damage = Mathf.FloorToInt(hitForce * 5);
+                    int damage = Mathf.FloorToInt(hitForce * 3);
                     healthManager.TakeDamage(damage, collider.gameObject);
-                    AddPoints(damage);
+                    AddPoints((int)damage);
                 }
                 //Remote hit reaction
                 if(healthManager.currentHealth > 0)
