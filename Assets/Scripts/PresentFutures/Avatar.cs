@@ -22,7 +22,7 @@ public class Avatar : NetworkBehaviour
     private MatchManager matchManager;
     [SerializeField] AudioSource hitAudioSource;
 
-    [SerializeField] PlayerHealthManager healthManager;
+    public PlayerHealthManager healthManager;
 
     [SerializeField] bool dontDestroyOwnBodyColliders;
 

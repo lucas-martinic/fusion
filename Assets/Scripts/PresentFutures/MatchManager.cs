@@ -43,6 +43,7 @@ public class MatchManager : NetworkBehaviour
     private float time = 0;
     private int playersOnline = 0;
     public bool matchFinished;
+    bool stopTimer = false;
 
     [Networked(OnChanged = nameof(NetworkTimeChanged))]
     float NetworkedTime { get; set; }
@@ -105,6 +106,7 @@ public class MatchManager : NetworkBehaviour
     [ContextMenu("StartRound")]
     private void StartRound()
     {
+        stopTimer = false;
         RPC_SetMovement(1);
         switch (matchState)
         {
@@ -145,6 +147,7 @@ public class MatchManager : NetworkBehaviour
     {
         if (HasStateAuthority)
         {
+            stopTimer = true;
             RPC_SetMovement(0);
             switch (matchState)
             {
@@ -227,6 +230,8 @@ public class MatchManager : NetworkBehaviour
         {
             if ((int)matchState == 1 || (int)matchState == 3 || (int)matchState == 5)
             {
+                if (stopTimer) return;
+
                 if(time > 0)
                 {
                     NetworkedTime = time -= Time.deltaTime;
@@ -426,6 +431,7 @@ public class MatchManager : NetworkBehaviour
         if(changed.Behaviour.NetworkedKOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(BluePlayer);
+            changed.Behaviour.RPC_EndRound();
         }
     }
     private static void KOPlayerBlueChanged(Changed<MatchManager> changed)
@@ -433,6 +439,7 @@ public class MatchManager : NetworkBehaviour
         if (changed.Behaviour.NetworkedKOPlayerBlue == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(RedPlayer);
+            changed.Behaviour.RPC_EndRound();
         }
     }
     public void PlayerKO()

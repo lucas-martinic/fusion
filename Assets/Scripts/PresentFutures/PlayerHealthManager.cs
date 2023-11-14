@@ -10,7 +10,7 @@ public class PlayerHealthManager : NetworkBehaviour
     public float maxHealth, currentHealth, minDamage, maxDamage, minVelocity, maxVelocity, headshotMultiplier, respawnTime;
     [SerializeField] float regeneration;
     public bool dead;
-    [SerializeField] SkinnedMeshRenderer mainRenderer;
+    public SkinnedMeshRenderer mainRenderer;
     [SerializeField] Rigidbody[] rigidbodies;
     [SerializeField] NetworkObject knockoutAvatar;
     [SerializeField] Avatar mainAvatar;
@@ -18,6 +18,7 @@ public class PlayerHealthManager : NetworkBehaviour
     private NetworkObject koAvatar;
     [SerializeField] Transform rootBone;
     private MatchManager matchManager;
+    [SerializeField] private AnimationCurve lowHealthUICurve;
 
     [Networked(OnChanged = nameof(NetworkedAvatarRendererEnabledChanged))]
     bool NetworkedAvatarRendererEnabled { get; set; }
@@ -38,6 +39,9 @@ public class PlayerHealthManager : NetworkBehaviour
     {
         if (currentHealth < maxHealth)
             currentHealth += regeneration * Time.deltaTime;
+
+        var color = Player.Instance.hurtScreen.color;
+        Player.Instance.hurtScreen.color = new Color(color.r, color.g, color.b, lowHealthUICurve.Evaluate((maxHealth - currentHealth) / maxHealth));
     }
 
     public void TakeDamage(float velocity, GameObject hitObject)
@@ -117,16 +121,16 @@ public class PlayerHealthManager : NetworkBehaviour
         dead = true;
         if(koAvatar == null)
         {
-            koAvatar = runner.Spawn(knockoutAvatar, transform.GetChild(0).position, transform.GetChild(0).rotation, null, BefireKOAvatarSpawned);
+            koAvatar = runner.Spawn(knockoutAvatar, transform.GetChild(0).position, transform.GetChild(0).rotation, null, BeforeKOAvatarSpawned);
         }
         matchManager.PlayerKO();
         NetworkedAvatarRendererEnabled = false;
         StartCoroutine(RespawnTimer());
     }
 
-    private void BefireKOAvatarSpawned(NetworkRunner runner, NetworkObject obj)
+    private void BeforeKOAvatarSpawned(NetworkRunner runner, NetworkObject obj)
     {
-        obj.GetComponent<KnockoutAvatar>().SetParent(runner, Id, Runner.LocalPlayer);
+        obj.GetComponent<KnockoutAvatar>().SetAvatarID(Id);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]

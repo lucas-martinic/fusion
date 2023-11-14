@@ -576,6 +576,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823571}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076576874164645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,6 +1255,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823567}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076577263813891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,6 +1488,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823572}
   receiveDamage: 1
+  onCooldown: 0
 --- !u!1 &4703076577347350721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,6 +1794,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823569}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076577656988587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,6 +1926,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823579}
   receiveDamage: 1
+  onCooldown: 0
 --- !u!1 &4703076577666223003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,6 +2093,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823581}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076577761699115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,6 +2327,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823561}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076577786379915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2878,6 +2885,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823563}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076578400893255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,6 +3086,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823559}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076578578515027
 GameObject:
   m_ObjectHideFlags: 0
@@ -3986,6 +3995,7 @@ MonoBehaviour:
   avatar: {fileID: 4703076578623806995}
   _collider: {fileID: 4703076576811823555}
   receiveDamage: 0
+  onCooldown: 0
 --- !u!1 &4703076578614742717
 GameObject:
   m_ObjectHideFlags: 0
@@ -4096,7 +4106,65 @@ MonoBehaviour:
   healthManager: {fileID: 8091406231402886136}
   dontDestroyOwnBodyColliders: 0
   meshRenderer: {fileID: 4703076576955632764}
-  bodyParts: []
+  bodyParts:
+  - {fileID: 4703076576955913864}
+  - {fileID: 4703076576811823591}
+  - {fileID: 4703076576810165401}
+  - {fileID: 4703076576811823586}
+  - {fileID: 4703076576811823587}
+  - {fileID: 4703076577233221172}
+  - {fileID: 4703076576695597519}
+  - {fileID: 4703076577761699112}
+  - {fileID: 4703076576874164642}
+  - {fileID: 4703076576811823588}
+  - {fileID: 4703076576811823589}
+  - {fileID: 4703076578247403494}
+  - {fileID: 4703076578486489421}
+  - {fileID: 4703076577908726799}
+  - {fileID: 4703076578614742714}
+  - {fileID: 4703076576811823590}
+  - {fileID: 4703076578148862499}
+  - {fileID: 4703076578650923974}
+  - {fileID: 4703076576841517068}
+  - {fileID: 4703076576811823598}
+  - {fileID: 4703076576739141058}
+  - {fileID: 4703076576811823577}
+  - {fileID: 4703076576811823576}
+  - {fileID: 4703076578814060821}
+  - {fileID: 4703076577772007094}
+  - {fileID: 4703076577263813888}
+  - {fileID: 4703076577076872329}
+  - {fileID: 4703076576861578208}
+  - {fileID: 4703076577800640672}
+  - {fileID: 4703076578157652663}
+  - {fileID: 4703076576884257007}
+  - {fileID: 4703076577441961089}
+  - {fileID: 4703076577766099898}
+  - {fileID: 4703076576810751933}
+  - {fileID: 4703076576742491387}
+  - {fileID: 4703076576970996861}
+  - {fileID: 4703076577269561553}
+  - {fileID: 4703076578350818518}
+  - {fileID: 4703076577786379912}
+  - {fileID: 4703076576962791097}
+  - {fileID: 4703076576811823584}
+  - {fileID: 4703076576811823585}
+  - {fileID: 4703076576811823540}
+  - {fileID: 4703076576879188235}
+  - {fileID: 4703076576895608035}
+  - {fileID: 4703076578646332009}
+  - {fileID: 4703076577178957366}
+  - {fileID: 4703076576786636899}
+  - {fileID: 4703076577171927594}
+  - {fileID: 4703076576700451622}
+  - {fileID: 4703076577347350734}
+  - {fileID: 4703076576869483052}
+  - {fileID: 4703076578400893252}
+  - {fileID: 4703076577666223000}
+  - {fileID: 4703076577352801506}
+  - {fileID: 4703076578731157209}
+  - {fileID: 4703076578774341589}
+  - {fileID: 4703076577856466829}
   rootPart: {fileID: 4703076576955913864}
 --- !u!114 &8091406231402886136
 MonoBehaviour:
@@ -4139,6 +4207,30 @@ MonoBehaviour:
     type: 3}
   mainAvatar: {fileID: 4703076578623806995}
   rootBone: {fileID: 4703076576955913864}
+  lowHealthUICurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0
+      outSlope: -0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.05292125
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.1388674
+      outSlope: 3.1388674
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.027307391
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &4703076578623806993
 MonoBehaviour:
   m_ObjectHideFlags: 0
