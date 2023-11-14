@@ -3386,7 +3386,7 @@ MonoBehaviour:
   scoreRedText: {fileID: 1792492810}
   scoreBlueText: {fileID: 335666385}
   stateText: {fileID: 777087364}
-  roundTime: 10
+  roundTime: 30
   inputAction: {fileID: 978800011882943547, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
   matchFinished: 0

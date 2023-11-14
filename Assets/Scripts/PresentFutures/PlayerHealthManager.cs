@@ -1,9 +1,10 @@
 using Fusion;
 using RootMotion.FinalIK;
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealthManager : MonoBehaviour
+public class PlayerHealthManager : NetworkBehaviour
 {
     [SerializeField] VRIK ik;
     public float maxHealth, currentHealth, minDamage, maxDamage, minVelocity, maxVelocity, headshotMultiplier, respawnTime;
@@ -18,10 +19,19 @@ public class PlayerHealthManager : MonoBehaviour
     [SerializeField] Transform rootBone;
     private MatchManager matchManager;
 
+    [Networked(OnChanged = nameof(NetworkedAvatarRendererEnabledChanged))]
+    bool NetworkedAvatarRendererEnabled { get; set; }
+
+    private static void NetworkedAvatarRendererEnabledChanged(Changed<PlayerHealthManager> changed)
+    {
+        changed.Behaviour.mainRenderer.enabled = changed.Behaviour.NetworkedAvatarRendererEnabled;
+    }
+
     private void Start()
     {
         runner = FindObjectOfType<NetworkRunner>();
         matchManager = FindAnyObjectByType<MatchManager>();
+        NetworkedAvatarRendererEnabled = true;
     }
 
     private void Update()
@@ -30,13 +40,13 @@ public class PlayerHealthManager : MonoBehaviour
             currentHealth += regeneration * Time.deltaTime;
     }
 
-    public float TakeDamage(float velocity, GameObject hitObject)
+    public void TakeDamage(float velocity, GameObject hitObject)
     {
-        return SyncDamageRPC(velocity, hitObject.tag);
+        RPC_TakeDamage(velocity, hitObject.tag);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    float SyncDamageRPC(float velocity, string hitObjectTag)
+    void RPC_TakeDamage(float velocity, string hitObjectTag)
     {
         float damageDone = 0;
         if (!dead)
@@ -45,9 +55,8 @@ public class PlayerHealthManager : MonoBehaviour
             {
                 Player.Instance.damageAnimator.SetTrigger("HeadHit");
 
-                damageDone = CalculateDamage(velocity) * headshotMultiplier;
+                damageDone = CalculateDamage(velocity);
                 currentHealth -= damageDone;
-
                 Debug.Log("VELOCITY: " + velocity + " DAMAGE: " + CalculateDamage(velocity) * headshotMultiplier);
 
                 StartCoroutine(EnableHealthAnimationsAfterDelay());
@@ -64,11 +73,9 @@ public class PlayerHealthManager : MonoBehaviour
                 StartCoroutine(EnableHealthAnimationsAfterDelay());
             }
 
-            else { return damageDone; }
             if (currentHealth <= 0)
                 Death();
         }
-        return damageDone;
     }
 
     private float CalculateDamage(float velocity)
@@ -93,12 +100,12 @@ public class PlayerHealthManager : MonoBehaviour
                 dead = false;
             yield return null;
         }
-        Respawn();
+        RPC_Respawn();
         yield return null;
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void CallDeath()
+    public void RPC_CallDeath()
     {
         Death();
     }
@@ -110,19 +117,22 @@ public class PlayerHealthManager : MonoBehaviour
         dead = true;
         if(koAvatar == null)
         {
-            koAvatar = runner.Spawn(knockoutAvatar, transform.position, transform.rotation);
-            var knockoutAvatarComponent = koAvatar.gameObject.GetComponent<KnockoutAvatar>();
-            knockoutAvatarComponent.MatchBodyPosition(rootBone.GetComponentsInChildren<Transform>());
+            koAvatar = runner.Spawn(knockoutAvatar, transform.GetChild(0).position, transform.GetChild(0).rotation, null, BefireKOAvatarSpawned);
         }
         matchManager.PlayerKO();
-        mainRenderer.enabled = false;
+        NetworkedAvatarRendererEnabled = false;
         StartCoroutine(RespawnTimer());
     }
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    private void Respawn()
+    private void BefireKOAvatarSpawned(NetworkRunner runner, NetworkObject obj)
     {
-        mainRenderer.enabled = true;
+        obj.GetComponent<KnockoutAvatar>().SetParent(runner, Id, Runner.LocalPlayer);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_Respawn()
+    {
+        NetworkedAvatarRendererEnabled = true;
         if(koAvatar)
             runner.Despawn(koAvatar);
         Player.Instance.respawnScreen.SetActive(false);

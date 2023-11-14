@@ -47,9 +47,9 @@ public class MatchManager : NetworkBehaviour
     [Networked(OnChanged = nameof(NetworkTimeChanged))]
     float NetworkedTime { get; set; }
     [Networked(OnChanged = nameof(NetworkScoreRedChanged))]
-    int NetworkedScoreRed { get; set; }
+    float NetworkedScoreRed { get; set; }
     [Networked(OnChanged = nameof(NetworkScoreBlueChanged))]
-    int NetworkedScoreBlue { get; set; }
+    float NetworkedScoreBlue { get; set; }
     [Networked(OnChanged = nameof(KOPlayerRedChanged))]
     int NetworkedKOPlayerRed { get; set; }
     [Networked(OnChanged = nameof(KOPlayerBlueChanged))]
@@ -140,27 +140,31 @@ public class MatchManager : NetworkBehaviour
     }
 
     [ContextMenu("EndRound")]
-    private void EndRound()
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_EndRound()
     {
-        RPC_SetMovement(0);
-        switch (matchState)
+        if (HasStateAuthority)
         {
-            case MatchState.Round1:
-                NetworkedMatchState = (int)MatchState.Break1;
-                RPC_MoveToCornerPosition();
-                matchTimer.RPC_StartTimer(10);
-                break;
-            case MatchState.Round2:
-                NetworkedMatchState = (int)MatchState.Break2;
-                RPC_MoveToCornerPosition();
-                matchTimer.RPC_StartTimer(10);
-                break;
-            case MatchState.Round3:
-                NetworkedMatchState = (int)MatchState.Finished;
-                EndMatch();
-                break;
-            default:
-                break;
+            RPC_SetMovement(0);
+            switch (matchState)
+            {
+                case MatchState.Round1:
+                    NetworkedMatchState = (int)MatchState.Break1;
+                    RPC_MoveToCornerPosition();
+                    matchTimer.RPC_StartTimer(10);
+                    break;
+                case MatchState.Round2:
+                    NetworkedMatchState = (int)MatchState.Break2;
+                    RPC_MoveToCornerPosition();
+                    matchTimer.RPC_StartTimer(10);
+                    break;
+                case MatchState.Round3:
+                    NetworkedMatchState = (int)MatchState.Finished;
+                    EndMatch();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -174,7 +178,8 @@ public class MatchManager : NetworkBehaviour
         playersOnline++;
         if(playersOnline == 2)
         {
-            StartMatch();
+            //Wait for the other player to connect to send the RPC
+            Invoke(nameof(StartMatch), 2);
         }
     }
 
@@ -183,7 +188,7 @@ public class MatchManager : NetworkBehaviour
     {
         if(player != Runner.LocalPlayer)
         {
-            EndMatch(Runner.LocalPlayer);
+            RPC_EndMatch(Runner.LocalPlayer);
         }
     }
 
@@ -198,13 +203,13 @@ public class MatchManager : NetworkBehaviour
     }
 
     //For score
-    public void AddPoints(int amount, int player)
+    public void AddPoints(float amount, int player)
     {
         RPC_AddPoints(amount, player);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RPC_AddPoints(int amount, int player)
+    public void RPC_AddPoints(float amount, int player)
     {
         if (player == RedPlayer)
         {
@@ -230,7 +235,7 @@ public class MatchManager : NetworkBehaviour
                 {
                     time = 0;
                     DetermineRoundWinner();
-                    EndRound();
+                    RPC_EndRound();
                 }
             }
         }
@@ -251,7 +256,7 @@ public class MatchManager : NetworkBehaviour
             playerOutOfRingCounter += Time.deltaTime;
             if(playerOutOfRingCounter > maxTimeOutOfRing)
             {
-                EndRound();
+                playerOutOfRingCounter = 0;
                 Disqualified();
             }
         }
@@ -277,6 +282,7 @@ public class MatchManager : NetworkBehaviour
     {
         //Other player wins
         RPC_WonRound((int)Runner.LocalPlayer == 0 ? 1:0);
+        RPC_EndRound();
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
@@ -345,7 +351,8 @@ public class MatchManager : NetworkBehaviour
 
     }
     //End match with a winner
-    private void EndMatch(int winner)
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_EndMatch(int winner)
     {
         matchFinishTextUI.transform.GetChild(winner).gameObject.SetActive(true);
         PlayerWins(winner);

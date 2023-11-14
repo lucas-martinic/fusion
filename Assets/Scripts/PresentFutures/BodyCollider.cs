@@ -19,13 +19,12 @@ public class BodyCollider : MonoBehaviour
         }
     }
 
-    private const float totalCooldown = 0.1f;
+    private const float totalCooldown = 0.25f;
     private float cooldown = totalCooldown;
-    private bool onCooldown;
+    public bool onCooldown;
 
     public void Hit(Vector3 direction, float speed, Vector3 position)
     {
-        if (onCooldown) return;
         Debug.Log("Hit " + _collider.name);
         onCooldown = true;
         avatar.ColliderHit(_collider, direction, speed, position, receiveDamage);

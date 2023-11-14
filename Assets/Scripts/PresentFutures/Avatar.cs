@@ -28,6 +28,17 @@ public class Avatar : NetworkBehaviour
 
     [SerializeField] SkinnedMeshRenderer meshRenderer;
 
+    public Transform[] bodyParts;
+    public Transform rootPart;
+
+    private void OnValidate()
+    {
+        if(bodyParts.Length == 0)
+        {
+            bodyParts = rootPart.GetComponentsInChildren<Transform>();
+        }
+    }
+
     private void Start()
     {
         matchManager = FindObjectOfType<MatchManager>();
@@ -76,13 +87,13 @@ public class Avatar : NetworkBehaviour
             {
                 //Local hit reaction
                 hitReaction.Hit(colliders[i], direction * hitForce, position);
-                PlayHitSound(i);
-                //Add one point, this can be used for different amounts in the future
+                PlayHitSound(i, hitForce);
                 if (receiveDamage)
                 {
                     //Calculate points/Health
-                    var damageDone = healthManager.TakeDamage(hitForce, collider.gameObject);
-                    AddPoints((int)damageDone);
+                    int damage = Mathf.FloorToInt(hitForce * 5);
+                    healthManager.TakeDamage(damage, collider.gameObject);
+                    AddPoints(damage);
                 }
                 //Remote hit reaction
                 if(healthManager.currentHealth > 0)
@@ -98,7 +109,7 @@ public class Avatar : NetworkBehaviour
     public void RPC_HitReaction(int colliderIndex, Vector3 direction, float hitForce, Vector3 position)
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
-        PlayHitSound(colliderIndex);
+        PlayHitSound(colliderIndex, hitForce);
     }
 
     public void SetColor()
@@ -113,9 +124,11 @@ public class Avatar : NetworkBehaviour
         }
     }
 
-    public void PlayHitSound(int colliderIndex)
+    public void PlayHitSound(int colliderIndex, float force)
     {
         hitAudioSource.transform.position = colliders[colliderIndex].transform.position;
+        hitAudioSource.volume = force;
+        hitAudioSource.pitch = Random.Range(0.8f, 1.2f);
         hitAudioSource.Play();
     }
     public void PlayHitSound()
@@ -123,9 +136,8 @@ public class Avatar : NetworkBehaviour
         hitAudioSource.Play();
     }
 
-    private void AddPoints(int points)
+    private void AddPoints(float points)
     {
-        if (matchManager.matchFinished) return;
         matchManager.AddPoints(points, Runner.LocalPlayer);
     }
 

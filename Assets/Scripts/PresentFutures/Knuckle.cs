@@ -63,6 +63,7 @@ public class Knuckle : MonoBehaviour
 
                 if (hit.distance <= hitDistance)
                 {
+                    if (bodyCollider.onCooldown) return;
                     bodyCollider.Hit(direction, speed, hit.point);
                     punchHeuristc.ProcessCollision();
                 }
@@ -71,6 +72,7 @@ public class Knuckle : MonoBehaviour
             {
                 if (probablyGonnaHit)
                 {
+                    if (colliderCandidate.onCooldown) return;
                     colliderCandidate.Hit(direction, speed, hit.point);
                     punchHeuristc.ProcessCollision();
                     probablyGonnaHit = false;

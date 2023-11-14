@@ -4096,6 +4096,8 @@ MonoBehaviour:
   healthManager: {fileID: 8091406231402886136}
   dontDestroyOwnBodyColliders: 0
   meshRenderer: {fileID: 4703076576955632764}
+  bodyParts: []
+  rootPart: {fileID: 4703076576955913864}
 --- !u!114 &8091406231402886136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4108,9 +4110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bdd4d89a94b3e4a8da2124ee5bcb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   ik: {fileID: 4703076578578515036}
   maxHealth: 100
-  currentHealth: 10
+  currentHealth: 100
   minDamage: 1
   maxDamage: 5
   minVelocity: 0
@@ -4187,6 +4190,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 4703076578623806995}
+  - {fileID: 8091406231402886136}
   - {fileID: 4703076578623806993}
   - {fileID: 2880295272212757980}
   - {fileID: 4042956403255423920}
