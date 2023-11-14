@@ -9,6 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 //Manages the match logic
 public class MatchManager : NetworkBehaviour
 {
+    //Constants for more readability
     private const int RedPlayer = 0;
     private const int BluePlayer = 1;
 
@@ -86,6 +87,9 @@ public class MatchManager : NetworkBehaviour
         moveProvider.moveSpeed = 0;
     }
 
+    /// <summary>
+    /// Starts the match, should be called when the two players already joined.
+    /// </summary>
     [ContextMenu("StartMatch")]
     public void StartMatch()
     {
@@ -97,12 +101,16 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    //Listens to left controller button press to toggle voicechat MUTE
     private void ToggleVoiceChat(InputAction.CallbackContext obj)
     {
         if(connectionManager.recorder != null)
             VoiceEnabled(!connectionManager.recorder.TransmitEnabled);
     }
 
+    /// <summary>
+    /// Starts a round if possible (if in waiting or break(n) state)
+    /// </summary>
     [ContextMenu("StartRound")]
     private void StartRound()
     {
@@ -132,6 +140,7 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    //Reset round stats
     private void ResetRoundStats()
     {
         NetworkedTime = roundTime;
@@ -141,6 +150,9 @@ public class MatchManager : NetworkBehaviour
         NetworkedKOPlayerRed = 0;
     }
 
+    /// <summary>
+    /// Finishes the current round if possible
+    /// </summary>
     [ContextMenu("EndRound")]
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_EndRound()
@@ -171,11 +183,10 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
-    public void SetMatchState(int matchState)
-    {
-        NetworkedMatchState = matchState;
-    }
-
+    /// <summary>
+    /// For counting amount of players in the room and start the match
+    /// </summary>
+    /// <param name="player"></param>
     public void PlayerJoined(PlayerRef player)
     {
         playersOnline++;
@@ -186,7 +197,7 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
-    //If the other player leaves, local player wins
+    //If the other player leaves, local player wins if the match is still ongoing
     public void PlayerLeft(PlayerRef player)
     {
         if ((int)matchState < 6)
@@ -198,22 +209,11 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
-    public void ResetGameStats()
-    {
-        if (HasStateAuthority)
-        {
-            NetworkedTime = roundTime;
-            NetworkedScoreRed = 0;
-            NetworkedScoreBlue = 0;
-        }
-    }
-
-    //For score
-    public void AddPoints(float amount, int player)
-    {
-        RPC_AddPoints(amount, player);
-    }
-
+    /// <summary>
+    /// Add an amount of points to certain player
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="player"></param>
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_AddPoints(float amount, int player)
     {
@@ -231,6 +231,7 @@ public class MatchManager : NetworkBehaviour
     {
         if (HasStateAuthority)
         {
+            //If a round is ongoing, time decreases
             if ((int)matchState == 1 || (int)matchState == 3 || (int)matchState == 5)
             {
                 if (stopTimer) return;
@@ -242,6 +243,7 @@ public class MatchManager : NetworkBehaviour
                 else
                 {
                     time = 0;
+                    //If the time runs out, we determine the winner from the amount of points
                     DetermineRoundWinner();                    
                     Invoke(nameof(RPC_EndRound), 2);
                 }
@@ -255,6 +257,9 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Check if the player is within the ring area
+    /// </summary>
     private void CheckIfWithinRing()
     {
         if(!ringCollider.bounds.Contains(Player.Instance.head.position)
@@ -265,11 +270,14 @@ public class MatchManager : NetworkBehaviour
             if(playerOutOfRingCounter > maxTimeOutOfRing)
             {
                 playerOutOfRingCounter = 0;
-                Disqualified();
+                ForceRoundLose();
             }
         }
     }
 
+    /// <summary>
+    /// Determine which player won the round from the amount of points
+    /// </summary>
     private void DetermineRoundWinner()
     {
         if(NetworkedScoreRed > NetworkedScoreBlue)
@@ -286,62 +294,87 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
-    private void Disqualified()
+    /// <summary>
+    /// Automatic
+    /// </summary>
+    private void ForceRoundLose()
     {
         //Other player wins
         RPC_WonRound((int)Runner.LocalPlayer == 0 ? 1:0);
         RPC_EndRound();
     }
 
+    /// <summary>
+    /// Saves who won the round and shows in the UI
+    /// </summary>
+    /// <param name="winner"></param>
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_WonRound(int winner)
     {
         Debug.Log("Match winner: " + winner.ToString());
 
-        switch (currentRound)
+        if (HasStateAuthority)
         {
-            case 0:
-                NetworkedRound1Winner = winner;
-                break;
-            case 1:
-                NetworkedRound2Winner = winner;
-                break;
-            case 2:
-                NetworkedRound3Winner = winner;
-                break;
-            default:
-                break;
+            switch (currentRound)
+            {
+                case 0:
+                    NetworkedRound1Winner = winner;
+                    break;
+                case 1:
+                    NetworkedRound2Winner = winner;
+                    break;
+                case 2:
+                    NetworkedRound3Winner = winner;
+                    break;
+                default:
+                    break;
+            }
         }
+
         roundsUI[currentRound].transform.GetChild(winner).gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Saves if there was a Tie and shows it in the UI
+    /// </summary>
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_Tie()
     {
         Debug.Log("Tie");
-        switch (currentRound)
+        if (HasInputAuthority)
         {
-            case 0:
-                NetworkedRound1Winner = -1;
-                break;
-            case 1:
-                NetworkedRound2Winner = -1;
-                break;
-            case 2:
-                NetworkedRound3Winner = -1;
-                break;
-            default:
-                break;
+            switch (currentRound)
+            {
+                case 0:
+                    NetworkedRound1Winner = -1;
+                    break;
+                case 1:
+                    NetworkedRound2Winner = -1;
+                    break;
+                case 2:
+                    NetworkedRound3Winner = -1;
+                    break;
+                default:
+                    break;
+            }
         }
+
         roundsUI[currentRound].transform.GetChild(2).gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Set movement speed for all player
+    /// </summary>
+    /// <param name="f"></param>
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_SetMovement(float f)
     {
         moveProvider.moveSpeed = f;
     }
 
+    /// <summary>
+    /// Calculates who was the Match winner and shows the UI elements
+    /// </summary>
     private void EndMatch()
     {
         //Determine winner by number of rounds won
@@ -364,6 +397,10 @@ public class MatchManager : NetworkBehaviour
         PlayerWins(winner);
     }
 
+    /// <summary>
+    /// Called after the match ends if one of the two players won, can be used to save stats and win statistics
+    /// </summary>
+    /// <param name="winner"></param>
     private void PlayerWins(int winner)
     {
         switch (winner)
@@ -429,7 +466,8 @@ public class MatchManager : NetworkBehaviour
     }
     private static void KOPlayerRedChanged(Changed<MatchManager> changed)
     {
-        if(changed.Behaviour.NetworkedKOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
+        //If 3 red KO's, blue player wins
+        if (changed.Behaviour.NetworkedKOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(BluePlayer);
             changed.Behaviour.RPC_EndRound();
@@ -437,6 +475,7 @@ public class MatchManager : NetworkBehaviour
     }
     private static void KOPlayerBlueChanged(Changed<MatchManager> changed)
     {
+        //If 3 blue KO's, red player wins
         if (changed.Behaviour.NetworkedKOPlayerBlue == 3 && changed.Behaviour.HasStateAuthority)
         {
             changed.Behaviour.RPC_WonRound(RedPlayer);
@@ -455,6 +494,7 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    //To control the black fadein/out sphere attached to head/camera
     public void SphereFadein(float time)
     {
         fadeSphere.material.DOFade(0, time).OnComplete(() => fadeSphere.enabled = false);
@@ -474,6 +514,7 @@ public class MatchManager : NetworkBehaviour
         });
     }
 
+    //Only for testing purposes
     #region Testing
     [ContextMenu("RedWinRound")]
     private void RedWinRound()

@@ -138,7 +138,7 @@ public class Avatar : NetworkBehaviour
 
     private void AddPoints(float points)
     {
-        matchManager.AddPoints(points, Runner.LocalPlayer);
+        matchManager.RPC_AddPoints(points, Runner.LocalPlayer);
     }
 
     private void Update()
