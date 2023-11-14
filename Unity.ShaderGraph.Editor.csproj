@@ -485,8 +485,8 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Input\Scene\EyeIndexNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Drawing\Inspector\PropertyDrawers\Vector3PropertyDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Importers\ShaderGraphImporter.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Math\Vector\TransformNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Drawing\Colors\IColorProvider.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Math\Vector\TransformNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\AssetCallbacks\CreateShaderSubGraph.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Graphs\GroupData.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@12.1.11\Editor\Data\Nodes\Input\Texture\ProceduralVirtualTextureNode.cs" />
@@ -1086,6 +1086,9 @@
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -1116,6 +1119,9 @@
     <Reference Include="Fusion.Common">
       <HintPath>Assets\Photon\Fusion\Assemblies\Fusion.Common.dll</HintPath>
     </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.3\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
@@ -1124,12 +1130,6 @@
     </Reference>
     <Reference Include="Fusion.Runtime">
       <HintPath>Assets\Photon\Fusion\Assemblies\Fusion.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
