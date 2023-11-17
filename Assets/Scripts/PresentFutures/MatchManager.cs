@@ -279,7 +279,7 @@ public class MatchManager : NetworkBehaviour
         }
         else
         {
-            Player.Instance.getBackScreen.gameObject.SetActive(true);
+            Player.Instance.getBackScreen.gameObject.SetActive(false);
         }
     }
 
