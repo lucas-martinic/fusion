@@ -95,15 +95,16 @@ public class Avatar : NetworkBehaviour
                     int damage = Mathf.FloorToInt(hitForce * 3);
                     healthManager.TakeDamage(damage, collider.gameObject);
                     AddPoints((int)damage);
+                    //Remote hit reaction
+                    if (healthManager.currentHealth > 0)
+                    {
+                        RPC_HitReaction(i, direction, hitForce, position);
+                    }
                 }
                 else
                 {
-                    PlayHitSound(i, hitForce);
-                }
-                //Remote hit reaction
-                if (healthManager.currentHealth > 0)
-                {
-                    RPC_HitReaction(i, direction, hitForce, position);
+                    PlayBlockSound(i, hitForce);
+                    RPC_BlockReaction(i, hitForce);
                 }
                 return;
             }
@@ -115,6 +116,11 @@ public class Avatar : NetworkBehaviour
     {
         hitReaction.Hit(colliders[colliderIndex], direction * hitForce, position);
         PlayHitSound(colliderIndex, hitForce);
+    }
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_BlockReaction(int colliderIndex, float hitForce)
+    {
+        PlayBlockSound(colliderIndex, hitForce);
     }
 
     public void SetColor()
