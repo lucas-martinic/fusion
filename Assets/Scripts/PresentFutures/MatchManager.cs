@@ -393,6 +393,7 @@ public class MatchManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_EndMatch(int winner)
     {
+        stopTimer = true;
         matchFinishTextUI.transform.GetChild(winner).gameObject.SetActive(true);
         PlayerWins(winner);
     }
