@@ -23,10 +23,11 @@ public class Knuckle : MonoBehaviour
         {
             previousPositions[i] = objectTransform.position;
         }
+        cooldown = knuckleCooldown;
     }
 
-    private const float totalCooldown = 0.5f;
-    private float cooldown = totalCooldown;
+    public float knuckleCooldown = 0.35f;
+    private float cooldown = 0;
     public bool onCooldown;
 
     void FixedUpdate()
@@ -55,7 +56,7 @@ public class Knuckle : MonoBehaviour
             if (cooldown <= 0)
             {
                 onCooldown = false;
-                cooldown = totalCooldown;
+                cooldown = knuckleCooldown;
             }
         }
         else
@@ -87,6 +88,7 @@ public class Knuckle : MonoBehaviour
                         else
                         {
                             bodyCollider.Hit(direction, speed, hit.point);
+                            //When blocked, knuckle gets a cooldown
                             onCooldown = true;
                         }
                     }
