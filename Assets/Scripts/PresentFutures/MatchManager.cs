@@ -266,12 +266,20 @@ public class MatchManager : NetworkBehaviour
             && !ringCollider.bounds.Contains(Player.Instance.handL.position)
                 && !ringCollider.bounds.Contains(Player.Instance.handR.position))
         {
+            Player.Instance.getBackScreen.gameObject.SetActive(true);
+            Player.Instance.getBackScreen.text = "Get back to boundary within " + (maxTimeOutOfRing-playerOutOfRingCounter).ToString("F2") + " seconds";
+
             playerOutOfRingCounter += Time.deltaTime;
             if(playerOutOfRingCounter > maxTimeOutOfRing)
             {
                 playerOutOfRingCounter = 0;
-                ForceRoundLose();
+                //Other player wins
+                RPC_EndMatch(Runner.LocalPlayer == 0 ? 1:0);
             }
+        }
+        else
+        {
+            Player.Instance.getBackScreen.gameObject.SetActive(true);
         }
     }
 

@@ -16,7 +16,8 @@ public class Player : Singleton<Player>
 
     public Image hurtScreen;
     public GameObject mildHurtScreen;
-    public GameObject respawnScreen;
+    public TextMeshProUGUI respawnScreen;
+    public TextMeshProUGUI getBackScreen;
     public TextMeshProUGUI respawnTimer;
     public Animator damageAnimator;
 

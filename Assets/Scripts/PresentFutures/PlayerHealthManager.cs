@@ -95,10 +95,10 @@ public class PlayerHealthManager : NetworkBehaviour
     private IEnumerator RespawnTimer()
     {
         float timer = respawnTime;
-        Player.Instance.respawnScreen.SetActive(true);
+        Player.Instance.respawnScreen.gameObject.SetActive(true);
         while (dead)
         {
-            Player.Instance.respawnTimer.text = "Respawning in " + timer.ToString("F2") + " seconds";
+            Player.Instance.respawnScreen.text = "Respawning in " + timer.ToString("F2") + " seconds";
             timer -= Time.deltaTime;
             if (timer < 0)
                 dead = false;
@@ -139,7 +139,7 @@ public class PlayerHealthManager : NetworkBehaviour
         NetworkedAvatarRendererEnabled = true;
         if(koAvatar)
             runner.Despawn(koAvatar);
-        Player.Instance.respawnScreen.SetActive(false);
+        Player.Instance.respawnScreen.gameObject.SetActive(false);
         currentHealth = maxHealth / 2;
     }
 
