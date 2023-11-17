@@ -21,6 +21,7 @@ public class Avatar : NetworkBehaviour
 
     private MatchManager matchManager;
     [SerializeField] AudioSource hitAudioSource;
+    [SerializeField] AudioSource blockAudioSource;
 
     public PlayerHealthManager healthManager;
 
@@ -87,16 +88,20 @@ public class Avatar : NetworkBehaviour
             {
                 //Local hit reaction
                 hitReaction.Hit(colliders[i], direction * hitForce, position);
-                PlayHitSound(i, hitForce);
                 if (receiveDamage)
                 {
+                    PlayHitSound(i, hitForce);
                     //Calculate points/Health
                     int damage = Mathf.FloorToInt(hitForce * 3);
                     healthManager.TakeDamage(damage, collider.gameObject);
                     AddPoints((int)damage);
                 }
+                else
+                {
+                    PlayHitSound(i, hitForce);
+                }
                 //Remote hit reaction
-                if(healthManager.currentHealth > 0)
+                if (healthManager.currentHealth > 0)
                 {
                     RPC_HitReaction(i, direction, hitForce, position);
                 }
@@ -130,6 +135,13 @@ public class Avatar : NetworkBehaviour
         hitAudioSource.volume = force;
         hitAudioSource.pitch = Random.Range(0.8f, 1.2f);
         hitAudioSource.Play();
+    }
+    public void PlayBlockSound(int colliderIndex, float force)
+    {
+        blockAudioSource.transform.position = colliders[colliderIndex].transform.position;
+        blockAudioSource.volume = force;
+        blockAudioSource.pitch = Random.Range(0.4f, 0.5f);
+        blockAudioSource.Play();
     }
     public void PlayHitSound()
     {

@@ -4,7 +4,7 @@ public class BodyCollider : MonoBehaviour
 {
     [SerializeField] Avatar avatar;
     public Collider _collider;
-    [SerializeField] private bool receiveDamage = false;
+    public bool receiveDamage = false;
 
     //Fill values in editor automatically
     private void OnValidate()

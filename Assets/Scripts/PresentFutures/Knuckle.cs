@@ -25,6 +25,10 @@ public class Knuckle : MonoBehaviour
         }
     }
 
+    private const float totalCooldown = 0.5f;
+    private float cooldown = totalCooldown;
+    public bool onCooldown;
+
     void FixedUpdate()
     {
         // Shift the previous positions array to make room for the new position.
@@ -45,40 +49,61 @@ public class Knuckle : MonoBehaviour
         if (healthManager)
             if (healthManager.dead) return;
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 0.5f, layerMask, QueryTriggerInteraction.Collide))
+        if (onCooldown)
         {
-            if (hit.collider.TryGetComponent(out BodyCollider bodyCollider))
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0)
             {
-                colliderCandidate = bodyCollider;
-
-                if (lastDistance > hit.distance)
+                onCooldown = false;
+                cooldown = totalCooldown;
+            }
+        }
+        else
+        {
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 0.5f, layerMask, QueryTriggerInteraction.Collide))
+            {
+                if (hit.collider.TryGetComponent(out BodyCollider bodyCollider))
                 {
-                    probablyGonnaHit = true;
+                    colliderCandidate = bodyCollider;
+
+                    if (lastDistance > hit.distance)
+                    {
+                        probablyGonnaHit = true;
+                    }
+                    else
+                    {
+                        probablyGonnaHit = false;
+                    }
+                    lastDistance = hit.distance;
+
+                    if (hit.distance <= hitDistance)
+                    {
+                        if (bodyCollider.onCooldown) return;
+                        if (bodyCollider.receiveDamage)
+                        {
+                            bodyCollider.Hit(direction, speed, hit.point);
+                            punchHeuristc.ProcessCollision();
+                        }
+                        else
+                        {
+                            bodyCollider.Hit(direction, speed, hit.point);
+                            onCooldown = true;
+                        }
+                    }
                 }
                 else
                 {
-                    probablyGonnaHit = false;
-                }
-                lastDistance = hit.distance;
-
-                if (hit.distance <= hitDistance)
-                {
-                    if (bodyCollider.onCooldown) return;
-                    bodyCollider.Hit(direction, speed, hit.point);
-                    punchHeuristc.ProcessCollision();
-                }
-            }
-            else
-            {
-                if (probablyGonnaHit)
-                {
-                    if (colliderCandidate.onCooldown) return;
-                    colliderCandidate.Hit(direction, speed, hit.point);
-                    punchHeuristc.ProcessCollision();
-                    probablyGonnaHit = false;
-                    lastDistance = 0;
+                    if (probablyGonnaHit)
+                    {
+                        if (colliderCandidate.onCooldown) return;
+                        colliderCandidate.Hit(direction, speed, hit.point);
+                        punchHeuristc.ProcessCollision();
+                        probablyGonnaHit = false;
+                        lastDistance = 0;
+                    }
                 }
             }
         }
+
     }
 }
