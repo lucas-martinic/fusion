@@ -123,7 +123,7 @@ public class PlayerHealthManager : NetworkBehaviour
         {
             koAvatar = runner.Spawn(knockoutAvatar, transform.GetChild(0).position, transform.GetChild(0).rotation, null, BeforeKOAvatarSpawned);
         }
-        matchManager.PlayerKO();
+        matchManager.RPC_PlayerKO(runner.LocalPlayer);
         NetworkedAvatarRendererEnabled = false;
         StartCoroutine(RespawnTimer());
     }

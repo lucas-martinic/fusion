@@ -491,13 +491,14 @@ public class MatchManager : NetworkBehaviour
             changed.Behaviour.RPC_EndRound();
         }
     }
-    public void PlayerKO()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_PlayerKO(int player)
     {
-        if(Runner.LocalPlayer == RedPlayer)
+        if(player == RedPlayer)
         {
             NetworkedKOPlayerRed++;
         }
-        else if(Runner.LocalPlayer == BluePlayer)
+        else if(player == BluePlayer)
         {
             NetworkedKOPlayerBlue++;
         }
