@@ -244,7 +244,7 @@ public class MatchManager : NetworkBehaviour
                 {
                     time = 0;
                     //If the time runs out, we determine the winner from the amount of points
-                    DetermineRoundWinner();                    
+                    DetermineRoundWinner();
                     Invoke(nameof(RPC_EndRound), 2);
                 }
             }
@@ -478,8 +478,7 @@ public class MatchManager : NetworkBehaviour
         //If 3 red KO's, blue player wins
         if (changed.Behaviour.NetworkedKOPlayerRed == 3 && changed.Behaviour.HasStateAuthority)
         {
-            changed.Behaviour.RPC_WonRound(BluePlayer);
-            changed.Behaviour.RPC_EndRound();
+            changed.Behaviour.RPC_EndMatch(BluePlayer);
         }
     }
     private static void KOPlayerBlueChanged(Changed<MatchManager> changed)
@@ -487,8 +486,7 @@ public class MatchManager : NetworkBehaviour
         //If 3 blue KO's, red player wins
         if (changed.Behaviour.NetworkedKOPlayerBlue == 3 && changed.Behaviour.HasStateAuthority)
         {
-            changed.Behaviour.RPC_WonRound(RedPlayer);
-            changed.Behaviour.RPC_EndRound();
+            changed.Behaviour.RPC_EndMatch(RedPlayer);
         }
     }
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
