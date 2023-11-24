@@ -10,10 +10,9 @@ public class PlayerHealthManager : NetworkBehaviour
     public float maxHealth, currentHealth, minDamage, maxDamage, minVelocity, maxVelocity, headshotMultiplier, respawnTime;
     [SerializeField] float regeneration;
     public bool dead;
-    public SkinnedMeshRenderer mainRenderer;
     [SerializeField] Rigidbody[] rigidbodies;
     [SerializeField] NetworkObject knockoutAvatar;
-    [SerializeField] Avatar mainAvatar;
+    public Avatar mainAvatar;
     private NetworkRunner runner;
     private NetworkObject koAvatar;
     [SerializeField] Transform rootBone;
@@ -25,7 +24,10 @@ public class PlayerHealthManager : NetworkBehaviour
 
     private static void NetworkedAvatarRendererEnabledChanged(Changed<PlayerHealthManager> changed)
     {
-        changed.Behaviour.mainRenderer.enabled = changed.Behaviour.NetworkedAvatarRendererEnabled;
+        foreach (var item in changed.Behaviour.mainAvatar.meshRenderer)
+        {
+            item.enabled = changed.Behaviour.NetworkedAvatarRendererEnabled;
+        }
     }
 
     private void Start()

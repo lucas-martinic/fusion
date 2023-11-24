@@ -2994,7 +2994,8 @@ MonoBehaviour:
   - {fileID: 4703076578601761232}
   - {fileID: 4703076578385691698}
   - {fileID: 4703076576873773910}
-  meshRenderer: {fileID: 4703076576955632764}
+  meshRenderer:
+  - {fileID: 4703076576955632764}
 --- !u!1 &4703076578644170484
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,6 +117,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   punchHeuristc: {fileID: 4369135073106201029}
   healthManager: {fileID: 8091406231402886136}
+  knuckleCooldown: 0.35
+  onCooldown: 0
 --- !u!114 &4369135073106201029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4235,7 +4237,8 @@ MonoBehaviour:
   blockAudioSource: {fileID: 5627759436033920870}
   healthManager: {fileID: 8091406231402886136}
   dontDestroyOwnBodyColliders: 0
-  meshRenderer: {fileID: 4703076576955632764}
+  meshRenderer:
+  - {fileID: 4703076576955632764}
   bodyParts:
   - {fileID: 4703076576955913864}
   - {fileID: 4703076576811823591}
@@ -5819,6 +5822,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   punchHeuristc: {fileID: 6245546124655824849}
   healthManager: {fileID: 8091406231402886136}
+  knuckleCooldown: 0.35
+  onCooldown: 0
 --- !u!114 &6245546124655824849
 MonoBehaviour:
   m_ObjectHideFlags: 0

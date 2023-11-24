@@ -5,7 +5,7 @@ public class KnockoutAvatar : NetworkBehaviour
 {
     [SerializeField] Transform[] bodyParts;
     [SerializeField] Rigidbody[] rigidBodies;
-    [SerializeField] SkinnedMeshRenderer meshRenderer;
+    [SerializeField] SkinnedMeshRenderer[] meshRenderer;
     [Networked(OnChanged = nameof(NetworkedAvatarParentIDChanged))]
     NetworkBehaviourId NetworkedAvatarParentID { get; set; }
     private Avatar avatar;
@@ -26,9 +26,15 @@ public class KnockoutAvatar : NetworkBehaviour
         transform.parent = obj.transform;
         avatar = GetComponentInParent<Avatar>();
         MatchBodyPosition(avatar.bodyParts);
-        meshRenderer.material.color = avatar.Object.StateAuthority == 0 ? Color.red : Color.blue;
-        avatar.healthManager.mainRenderer.enabled = false;
-        meshRenderer.enabled = true;
+        foreach (var item in meshRenderer)
+        {
+            item.material.color = avatar.Object.StateAuthority == 0 ? Color.red : Color.blue;
+            item.enabled = true;
+        }
+        foreach (var item in avatar.meshRenderer)
+        {
+            item.enabled = false;
+        }
     }
 
     public void MatchBodyPosition(Transform[] _bodyParts)

@@ -27,7 +27,7 @@ public class Avatar : NetworkBehaviour
 
     [SerializeField] bool dontDestroyOwnBodyColliders;
 
-    [SerializeField] SkinnedMeshRenderer meshRenderer;
+    public SkinnedMeshRenderer[] meshRenderer;
 
     public Transform[] bodyParts;
     public Transform rootPart;
@@ -127,11 +127,17 @@ public class Avatar : NetworkBehaviour
     {
         if (HasStateAuthority)
         {
-            meshRenderer.material.color = Runner.LocalPlayer == 0 ? Color.red : Color.blue;
+            foreach (var item in meshRenderer)
+            {
+                item.material.color = Runner.LocalPlayer == 0 ? Color.red : Color.blue;
+            }
         }
         else
         {
-            meshRenderer.material.color = Runner.LocalPlayer == 1 ? Color.red : Color.blue;
+            foreach (var item in meshRenderer)
+            {
+                item.material.color = Runner.LocalPlayer == 1 ? Color.red : Color.blue;
+            }
         }
     }
 
